@@ -1,0 +1,22 @@
+{
+  "name": "nba-player-team-profiles-cs374",
+  "version": "1.0.0",
+  "description": "Fall 2020 CS 374 (Database management) project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZachBowyer/NBA-PLAYER-TEAM-PROFILES-CS374.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZachBowyer/NBA-PLAYER-TEAM-PROFILES-CS374/issues"
+  },
+  "homepage": "https://github.com/ZachBowyer/NBA-PLAYER-TEAM-PROFILES-CS374#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
