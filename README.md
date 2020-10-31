@@ -3,7 +3,7 @@ Fall 2020 CS 374 (Database management) project
 
 Technologies used:
 HTML/JS/CSS
-NODE JS
+NODEJS
 sqlite3
 expressJS
 nodemon
