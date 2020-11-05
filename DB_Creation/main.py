@@ -15,6 +15,15 @@ def checkIfTableExists(cursor, TableName):
     cursor.execute(""" SELECT count(*) FROM sqlite_master WHERE type='table' AND name='{}' """.format(TableName))
     return (cursor.fetchone()[0]==1)
 
+#Given a csvfile, returns an array of arrays, where each inner array elements are the csv values
+def getDataFromCsv(FilePath):
+    DataList = []
+    with open(FilePath, newline = '') as csvfile:
+        data = csv.reader(csvfile, delimiter = ',', quotechar = '|')
+        for row in data:
+            DataList.append(row)
+    return DataList
+
 
 if(checkIfTableExists(cursor, 'TeamTotals')):
     print("TeamTotals table exists")
@@ -48,20 +57,11 @@ else:
     PTS INTEGER);""")
     print("Table TeamTotals created")
 
-'''
-#Populates data into TeamTotals table
-DataList = []
-with open('TeamTotals.csv', newline = '') as csvfile:
-    data = csv.reader(csvfile, delimiter = ',', quotechar = '|')
 
-    for row in data:
-        DataList.append(row)
 
-print(DataList[1])
-print(DataList[1][0])
-print(DataList[1][1])
-print(DataList[1][2])
-'''
+#TeamTotalData = getDataFromCsv('TeamTotals.csv')
+#print(TeamTotalData)
+
 
 #Creates TeamOpponentTotals table
 if(checkIfTableExists(cursor, 'TeamOppTotals')):
