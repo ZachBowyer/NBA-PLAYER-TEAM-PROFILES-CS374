@@ -1,5 +1,4 @@
 import os
-print("Hello world")
 import sqlite3
 import csv
 conn = sqlite3.connect('NBA_Stats.db')
@@ -18,10 +17,11 @@ def checkIfTableExists(cursor, TableName):
 #Given a csvfile, returns an array of arrays, where each inner array elements are the csv values
 def getDataFromCsv(FilePath):
     DataList = []
-    with open(FilePath, newline = '') as csvfile:
-        data = csv.reader(csvfile, delimiter = ',', quotechar = '|')
+    with open(FilePath, newline = '', encoding = 'utf-8') as csvfile:
+        data = csv.reader(csvfile, delimiter = ',')
         for row in data:
             DataList.append(row)
+
     return DataList
 
 
@@ -59,8 +59,12 @@ else:
 
 
 
-#TeamTotalData = getDataFromCsv('TeamTotals.csv')
-#print(TeamTotalData)
+TeamTotalData = getDataFromCsv('TeamTotals.csv')
+TeamOppTotalData = getDataFromCsv('TeamOppTotals.csv')
+PlayerData = getDataFromCsv('PlayerTotals.csv')
+print(len(TeamTotalData))
+print(len(TeamOppTotalData))
+print(len(PlayerData))
 
 
 #Creates TeamOpponentTotals table
