@@ -54,12 +54,7 @@ else:
 
 
 
-TeamTotalData = getDataFromCsv('TeamTotals.csv')
-TeamOppTotalData = getDataFromCsv('TeamOppTotals.csv')
-PlayerData = getDataFromCsv('PlayerTotals.csv')
-print(len(TeamTotalData))
-print(len(TeamOppTotalData))
-print(len(PlayerData))
+
 
 
 #Creates TeamOpponentTotals table
@@ -120,6 +115,38 @@ else:
              PF INTEGER,
              PTS INTEGER);""")
     print("Table PlayerTotals created")
+
+
+
+
+TeamTotalData = getDataFromCsv('TeamTotals.csv')
+TeamOppTotalData = getDataFromCsv('TeamOppTotals.csv')
+PlayerData = getDataFromCsv('PlayerTotals.csv')
+print(len(TeamTotalData))
+print(len(TeamOppTotalData))
+print(len(PlayerData))
+
+TeamTotalData.pop(0)
+TeamOppTotalData.pop(0)
+PlayerData.pop(0)
+
+
+#Insert data into db file
+for i in range(len(TeamTotalData)):
+    print(tuple(TeamTotalData[i]))
+    cursor.execute('INSERT INTO TeamTotals VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', tuple(TeamTotalData[i]))
+
+for i in range(len(TeamOppTotalData)):
+    print(tuple(TeamOppTotalData[i]))
+    cursor.execute('INSERT INTO TeamOppTotals VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', tuple(TeamOppTotalData[i]))
+
+for i in range(len(PlayerData)):
+    print(tuple(PlayerData[i]))
+    cursor.execute('INSERT INTO PlayerTotals VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', tuple(PlayerData[i]))
+
+#cursor.execute(""" INSERT INTO TeamTotals VALUES()""")
+
+conn.commit()
 
 conn.close()
 
