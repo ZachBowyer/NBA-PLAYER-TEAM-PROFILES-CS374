@@ -10,13 +10,22 @@ let userInput = document.getElementById("UserSearch")
 userInput.addEventListener('input', displayUserInput)
 function displayUserInput()
 {
+    
     $("#ResultsDiv").empty();
     let data = SQLPostRequest("SELECT * from PlayerTotals WHERE PlayerName LIKE '" + userInput.value + "%'");
 
     //add to list
-    for(var i = 0; i < data.length; i++)
+    for(var i = 0; i < 5; i++)
     {
+        if(i == data.length)
+        {
+            break;
+        }
         $("#ResultsDiv").append('<li style = "display: block">' + data[i].PlayerName);
+    }
+    if(userInput.value == "")
+    {
+        $("#ResultsDiv").empty();
     }
 }
 
