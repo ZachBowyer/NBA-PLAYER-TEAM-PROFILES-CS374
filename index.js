@@ -14,15 +14,20 @@ function displayUserInput()
 }
 
 
-function SQLPostRequest()
+//Makes a post request to server
+//Expects a string argument
+//Will be used for SQL statements
+//This should never be used for sensitive data
+//Due to the nature of this app, SQL will be handled client-side
+function SQLPostRequest(SQLString)
 {
     const Url = 'http://localhost:3000';
     const data = {
-        name: "Zach1"
+        Command: SQLString
     }
     $.post(Url, data, function(data,status){
         console.log(data)
     })
 }
 
-SQLPostRequest();
+SQLPostRequest("SELECT * from PlayerTotals");
