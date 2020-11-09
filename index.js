@@ -10,9 +10,22 @@ let userInput = document.getElementById("UserSearch")
 userInput.addEventListener('input', displayUserInput)
 function displayUserInput()
 {
-    console.log(userInput.value)
-}
+    $("#Results").empty();
+    let data = SQLPostRequest("SELECT * from PlayerTotals WHERE PlayerName LIKE '" + userInput.value + "%'");
+    console.log("high level", data);
 
+    //add to list
+    for(var i = 0; i < data.length; i++)
+    {
+        //$("#Results").append('<li style: position:absolute><p>' + data[i].PlayerName + '<p><li>');
+        $("#Results").append('<li>' + data[i].PlayerName + '<li>');
+        $('#Results li:last-child').remove();
+        //var li = document.createElement('li');
+        //var li = document.createElement('li');
+        //li.innerHTML = '<li>' + data[i].PlayerName + '<li>';
+        //document.getElementById("Results").appendChild(li)
+    }
+}
 
 //Makes a post request to server
 //Expects a string argument
@@ -21,13 +34,23 @@ function displayUserInput()
 //Due to the nature of this app, SQL will be handled client-side
 function SQLPostRequest(SQLString)
 {
-    const Url = 'http://localhost:3000';
-    const data = {
-        Command: SQLString
-    }
-    $.post(Url, data, function(data,status){
-        console.log(data)
+    const PageUrl = 'http://localhost:3000';
+    const data_ = { Command: SQLString }
+    
+    /*
+    $.post(Url, data, function(ReturnedData, status)
+    {
+        console.log(ReturnedData)
     })
-}
+    */
 
-SQLPostRequest("SELECT * from PlayerTotals");
+    let result = 0;
+    $.ajax({
+    type: 'POST',
+    url: PageUrl,
+    data: data_,
+    success: function(Data) { result = Data},
+    async:false //bad for large data
+    });
+    return result;
+}
