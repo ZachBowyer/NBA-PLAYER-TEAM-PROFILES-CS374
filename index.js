@@ -10,20 +10,13 @@ let userInput = document.getElementById("UserSearch")
 userInput.addEventListener('input', displayUserInput)
 function displayUserInput()
 {
-    $("#Results").empty();
+    $("#ResultsDiv").empty();
     let data = SQLPostRequest("SELECT * from PlayerTotals WHERE PlayerName LIKE '" + userInput.value + "%'");
-    console.log("high level", data);
 
     //add to list
     for(var i = 0; i < data.length; i++)
     {
-        //$("#Results").append('<li style: position:absolute><p>' + data[i].PlayerName + '<p><li>');
-        $("#Results").append('<li>' + data[i].PlayerName + '<li>');
-        $('#Results li:last-child').remove();
-        //var li = document.createElement('li');
-        //var li = document.createElement('li');
-        //li.innerHTML = '<li>' + data[i].PlayerName + '<li>';
-        //document.getElementById("Results").appendChild(li)
+        $("#ResultsDiv").append('<li style = "display: block">' + data[i].PlayerName);
     }
 }
 
@@ -36,14 +29,6 @@ function SQLPostRequest(SQLString)
 {
     const PageUrl = 'http://localhost:3000';
     const data_ = { Command: SQLString }
-    
-    /*
-    $.post(Url, data, function(ReturnedData, status)
-    {
-        console.log(ReturnedData)
-    })
-    */
-
     let result = 0;
     $.ajax({
     type: 'POST',

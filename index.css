@@ -35,14 +35,33 @@
     box-sizing: border-box;
 }
 
-#Results
+#ResultsDiv li 
 {
-    position: absolute;
-    display: block;
-    top: 20%;
-    left: 50%;
-    -moz-transform: translateX(-50%) translateY(-50%);
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
+  border: 1px solid #ddd; 
+  margin-top: -1px;
+  background-color: #f6f6f6; 
+  padding: 4px; 
+  text-decoration: none; 
+  font-size: 10px; 
+  color: black;
+  display: block;
+  width: 100%;
 }
 
+
+#ResultsDiv
+{
+    /*
+    position: absolute;
+    top: 25%;
+    left: 41%;
+    */
+
+    position: absolute;
+    top: 22.2%;
+    left: 32%;
+    width: 33.6%;
+    padding: 10px 2px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
