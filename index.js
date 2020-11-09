@@ -12,3 +12,17 @@ function displayUserInput()
 {
     console.log(userInput.value)
 }
+
+
+function SQLPostRequest()
+{
+    const Url = 'http://localhost:3000';
+    const data = {
+        name: "Zach1"
+    }
+    $.post(Url, data, function(data,status){
+        console.log(data)
+    })
+}
+
+SQLPostRequest();

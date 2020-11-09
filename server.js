@@ -1,8 +1,13 @@
 //ExpressJS server setup
 var express = require('express');
-var app = express();
+const cors = require('cors')
 var path = require("path")
+const bodyParser = require('body-parser');
+
+var app = express();
 app.listen(3000);
+app.use(cors())
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
@@ -13,7 +18,7 @@ app.listen(3000);
 
 //SQLITE 3 setup
 const sqlite3 = require('sqlite3').verbose();
-let db = new sqlite3.Database('./data/chinook.db', sqlite3.OPEN_READWRITE, (err) => {
+let db = new sqlite3.Database('./DBFILES/NBA_Stats_Official.db', sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
       return console.error(err.message);
     }
@@ -33,20 +38,36 @@ function CloseDB(DBConnectionVar)
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
 
+//If client makes request to this
+//client request is a SQL string
+//server will run sql statement in via sqlite 
+//and will return data as json to client
+app.post('/', function (req, res) {
+  console.log("POST request detected, received data: ", req.body)
+  res.send('Got a POST request')
+})
+
+
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+///////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//////////////////////////////////////////////////
+
+/*
 //Data queries
-db.each(`SELECT PlaylistId as id,
-        Name as name
-        FROM playlists`, (err, row) => {
+db.each(`SELECT * FROM PlayerTotals`, (err, row) => {
   if (err) 
   {
     console.error(err.message);
   }
-  console.log(row.id + "\t" + row.name);
+  console.log(row);
 });
-
 
 //Close DB
 CloseDB(db);
+*/
 
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
@@ -71,3 +92,53 @@ app.get('/index.css', function(req, res){
     console.log("Sending index.css to client")
 });
 
+app.get('/jquery-3.5.1.js', function(req, res){
+    res.sendFile(path.join(__dirname + '/jquery-3.5.1.js'));
+    console.log("Sending jquery-3.5.1.js to client")
+});
+
+
+/*
+
+var express = require('express')
+var cors = require('cors')
+var app = express()
+var path = require("path")
+
+app.use(cors())
+
+app.get('/products/:id', function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for all origins!'})
+})
+
+app.listen(3000, function () {
+  console.log('CORS-enabled web server listening on port 3000')
+})
+
+app.get('/', function(req, res){
+   res.sendFile(path.join(__dirname + '/index.html'));
+   console.log("Sending index.html to client")
+});
+
+app.get('/index.js', function(req, res){
+       res.sendFile(path.join(__dirname + '/index.js'));
+       console.log("Sending index.js to client")
+});
+
+app.get('/index.css', function(req, res){
+    res.sendFile(path.join(__dirname + '/index.css'));
+    console.log("Sending index.css to client")
+});
+
+
+app.get('/jquery-3.5.1.js', function(req, res){
+    res.sendFile(path.join(__dirname + '/jquery-3.5.1.js'));
+    console.log("Sending jquery-3.5.1.js to client")
+});
+
+
+app.post('/', function (req, res) {
+  console.log("Sent post request")
+  res.send('Got a POST request')
+});
+*/
