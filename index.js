@@ -12,16 +12,16 @@ function displayUserInput()
 {
     
     $("#ResultsDiv").empty();
-    let data = SQLPostRequest("SELECT * from PlayerTotals WHERE PlayerName LIKE '" + userInput.value + "%'");
+    let data = SQLPostRequest("SELECT DISTINCT PlayerName from PlayerTotals WHERE PlayerName LIKE '" + userInput.value + "%'");
 
     //add to list
-    for(var i = 0; i < 5; i++)
+    for(var i = 0; i < 8; i++)
     {
         if(i == data.length)
         {
             break;
         }
-        $("#ResultsDiv").append('<li style = "display: block">' + data[i].PlayerName);
+        $("#ResultsDiv").append('<li>' + data[i].PlayerName.split("\\")[0]);
     }
     if(userInput.value == "")
     {

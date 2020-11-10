@@ -12,57 +12,46 @@
     width: 80%;
 }
 
-#TestButton
+#UserSearch
 {
-    position: relative;
+    position: absolute;
     display: block;
-    top: 20px;
-    left: 200px;
+    width: 100%;
+    padding: 0px 0px;
+    margin: 0px 0;
+    box-sizing: border-box;
+    z-index: 1;
 }
 
-#UserSearch
+#ResultsDiv
+{
+    position: absolute;
+    width: 100%;
+    margin: 9px 0;
+    box-sizing: border-box;
+    padding: 10px 0px;
+}
+
+#ResultsDiv li  
+{
+  position: relative;
+  background-color: #f6f6f6; 
+  padding: 0px; 
+  font-size: 10px; 
+  color: black;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#SearchAndResultsDiv
 {
     position: absolute;
     display: block;
     top: 20%;
     left: 50%;
+    width: 40%;
     -moz-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
-    width: 35%;
-    padding: 10px 2px;
-    margin: 8px 0;
-    box-sizing: border-box;
-}
-
-#ResultsDiv li 
-{
-  border: 1px solid #ddd; 
-  margin-top: -1px;
-  background-color: #f6f6f6; 
-  padding: 4px; 
-  text-decoration: none; 
-  font-size: 10px; 
-  color: black;
-  display: block;
-  width: 100%;
-}
-
-
-#ResultsDiv
-{
-    /*
-    position: absolute;
-    top: 25%;
-    left: 41%;
-    */
-
-    position: absolute;
-    top: 22.2%;
-    left: 32%;
-    width: 35%;
-    padding: 10px 2px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    padding: 10px 2px;
 }
