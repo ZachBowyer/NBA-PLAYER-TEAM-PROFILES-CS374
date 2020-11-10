@@ -12,7 +12,7 @@ function displayUserInput()
 {
     
     $("#ResultsDiv").empty();
-    let data = SQLPostRequest("SELECT DISTINCT PlayerName from PlayerTotals WHERE PlayerName LIKE '" + userInput.value + "%'");
+    let data = SQLPostRequest("SELECT DISTINCT Name FROM (SELECT DISTINCT PlayerName AS Name From PlayerTotals UNION Select DISTINCT TeamName AS Name from TeamTotals) WHERE Name LIKE '" + userInput.value + "%'");
 
     //add to list
     for(var i = 0; i < 8; i++)
@@ -21,7 +21,14 @@ function displayUserInput()
         {
             break;
         }
-        $("#ResultsDiv").append('<li>' + data[i].PlayerName.split("\\")[0]);
+        if(data[i].Name.includes("\\"))
+        {
+            $("#ResultsDiv").append('<li>' + data[i].Name.split("\\")[0]);
+        }
+        else
+        {
+            $("#ResultsDiv").append('<li>' + data[i].Name);
+        }
     }
     if(userInput.value == "")
     {
