@@ -14,11 +14,13 @@ function displayUserInput()
         {
             break;
         }
-        if(data[i].Name.includes("\\"))
+        if(data[i].Name.includes("\\")) //if its a player
         {
             $("#ResultsDiv").append('<li onclick = "detectIfPlayerOrTeam($(this).text());">' + data[i].Name.split("\\")[0]);
+            let PlayerPictureURL = "https://www.basketball-reference.com/req/202011101/images/players/" + data[i].Name.split("\\")[1] + ".jpg"
+            $("#ResultsDiv").append('<img itemscope="image" src = ' + PlayerPictureURL + ' width = 10%></img>')
         }
-        else
+        else    //if its a team
         {
             $("#ResultsDiv").append('<li onclick = detectIfPlayerOrTeam($(this).text());>' + data[i].Name);
         }
@@ -28,6 +30,7 @@ function displayUserInput()
         $("#ResultsDiv").empty();
     }
 }
+
 
 
 function detectIfPlayerOrTeam(NameString)
