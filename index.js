@@ -23,6 +23,9 @@ function displayUserInput()
         else    //if its a team
         {
             $("#ResultsDiv").append('<li onclick = detectIfPlayerOrTeam($(this).text());>' + data[i].Name);
+            let teamAbbreviation = SQLPostRequest('SELECT DISTINCT Abbr FROM TeamTotals WHERE TeamName LIKE "' + data[i].Name + '%"');
+            let TeamPictureURL = "https://d2p3bygnnzw9w3.cloudfront.net/req/202010221/tlogo/bbr/" + teamAbbreviation[0].Abbr + ".png"
+            $("#ResultsDiv").append('<img class="teamlogo" itemscope="image" src= ' + TeamPictureURL +' width = 10%></img>')
         }
     }
     if(userInput.value == "")
