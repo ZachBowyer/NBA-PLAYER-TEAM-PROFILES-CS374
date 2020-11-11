@@ -12,7 +12,7 @@ function displayUserInput()
 {
     
     $("#ResultsDiv").empty();
-    let data = SQLPostRequest("SELECT DISTINCT Name FROM (SELECT DISTINCT PlayerName AS Name From PlayerTotals UNION Select DISTINCT TeamName AS Name from TeamTotals) WHERE Name LIKE '" + userInput.value + "%'");
+    let data = SQLPostRequest('SELECT DISTINCT Name FROM (SELECT DISTINCT PlayerName AS Name From PlayerTotals UNION Select DISTINCT TeamName AS Name from TeamTotals) WHERE Name LIKE "' + userInput.value + '%"');
 
     //add to list
     for(var i = 0; i < 8; i++)

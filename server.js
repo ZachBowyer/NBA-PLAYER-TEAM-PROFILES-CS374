@@ -11,6 +11,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //const cors = require('cors')
 //app.use(cors())
 
+
+
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
@@ -44,9 +46,21 @@ function CloseDB(DBConnectionVar)
 //client request is a SQL string
 //server will run sql statement in via sqlite 
 //and will return data as json to client
+
+
+let invalidCharacters = ["\\", "'", "\""]
+
 app.post('/', function (req, res) {
   console.log("POST request detected, received data: ", req.body)
   let SQLStatement = req.body.Command
+
+
+/*
+  for(var i = 0; i < req.body.Command.length; i++)
+  {
+    
+  }
+  */
 
   var data = []
   db.each(SQLStatement, function(err, row){
