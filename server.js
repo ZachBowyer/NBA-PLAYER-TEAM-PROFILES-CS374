@@ -54,14 +54,6 @@ app.post('/', function (req, res) {
   console.log("POST request detected, received data: ", req.body)
   let SQLStatement = req.body.Command
 
-
-/*
-  for(var i = 0; i < req.body.Command.length; i++)
-  {
-    
-  }
-  */
-
   var data = []
   db.each(SQLStatement, function(err, row){
   if (err) 
@@ -101,4 +93,28 @@ app.get('/index.css', function(req, res){
 app.get('/jquery-3.5.1.js', function(req, res){
     res.sendFile(path.join(__dirname + '/jquery-3.5.1.js'));
     console.log("Sending jquery-3.5.1.js to client")
+});
+
+
+
+//Player html file sent to client
+app.get('/playerInfo.html', function(req, res){
+  res.sendFile(path.join(__dirname + '/playerInfo.html'))
+  console.log("Sending playerInfo.html")
+});
+
+app.get('/playerInfo.css', function(req, res){
+  res.sendFile(path.join(__dirname + '/playerInfo.css'))
+  console.log("Sending playerInfo.css")
+});
+
+//Team html file sent to client
+app.get('/TeamInfo.html', function(req, res){
+  res.sendFile(path.join(__dirname + '/TeamInfo.html'))
+  console.log("Sending playerInfo.html")
+});
+
+app.get('/TeamInfo.css', function(req, res){
+  res.sendFile(path.join(__dirname + '/TeamInfo.css'))
+  console.log("Sending playerInfo.css")
 });
