@@ -39,15 +39,13 @@ function displayUserInput()
         if(data[i].Name.includes("\\")) //if its a player
         {
             $("#ResultsDiv").append('<li onclick = "detectIfPlayerOrTeam($(this).text());">' + data[i].Name.split("\\")[0]);
-            let PlayerPictureURL = "https://www.basketball-reference.com/req/202011101/images/players/" + data[i].Name.split("\\")[1] + ".jpg"
-            $("#ResultsDiv").append('<img itemscope="image" src = ' + PlayerPictureURL + ' width = 10%></img>')
+            //let PlayerPictureURL = "https://www.basketball-reference.com/req/202011101/images/players/" + data[i].Name.split("\\")[1] + ".jpg"
+            $("#ResultsDiv").append('<img itemscope="image" src = ' + getPlayerPictureFromName(data[i].Name) + ' width = 10%></img>')
         }
         else    //if its a team
         {
             $("#ResultsDiv").append('<li onclick = detectIfPlayerOrTeam($(this).text());>' + data[i].Name);
-            let teamAbbreviation = SQLPostRequest('SELECT DISTINCT Abbr FROM TeamTotals WHERE TeamName LIKE "' + data[i].Name + '%"');
-            let TeamPictureURL = "https://d2p3bygnnzw9w3.cloudfront.net/req/202010221/tlogo/bbr/" + teamAbbreviation[0].Abbr + ".png"
-            $("#ResultsDiv").append('<img class="teamlogo" itemscope="image" src= ' + TeamPictureURL +' width = 10%></img>')
+            $("#ResultsDiv").append('<img class="teamlogo" itemscope="image" src= ' + getTeamPicutureFromName(data[i].Name) +' width = 10%></img>')
         }
     }
     if(userInput.value == "")
@@ -69,6 +67,32 @@ function detectIfPlayerOrTeam(NameString)
         goToTeamPage(NameString)
     }
 }
+
+//Get player/team urls given the names of the players/teams
+function getPlayerPictureFromName(playerName)
+{
+    let fullPlayerName = SQLPostRequest('SELECT DISTINCT PlayerName FROM PlayerTotals WHERE PlayerName LIKE "' + playerName + '%"');
+    let playerSearchString = fullPlayerName[0].PlayerName.split("\\")[1]
+    return "https://www.basketball-reference.com/req/202011101/images/players/" + playerSearchString + ".jpg"
+
+}
+
+function getTeamPicutureFromName(teamName)
+{
+    let teamAbbreviation = SQLPostRequest('SELECT DISTINCT Abbr FROM TeamTotals WHERE TeamName LIKE "' + teamName + '%"');
+    return "https://d2p3bygnnzw9w3.cloudfront.net/req/202010221/tlogo/bbr/" + teamAbbreviation[0].Abbr + ".png"
+}
+
+function createPlayerSearchString(playerName)
+{
+    let searchString = "";
+    let firstname =  playerName.split(" ")[0]
+    let lastname =  playerName.split(" ")[1]
+    searchString = (lastname.slice(0,5) + firstname.slice(0,2) + "01");
+    searchString = searchString.toLowerCase()
+    return searchString;
+}
+
 
 //////////////////////////////////////////
 //////////////////////////////////////////
