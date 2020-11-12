@@ -80,6 +80,7 @@ function goToPlayerPage(playerName)
     $.get( "/playerInfo.html", function( data ) {
     $( ".result" ).html( data );
     window.location.href = "/playerInfo.html#" + playerName
+    location.reload()
     });
 }
 
