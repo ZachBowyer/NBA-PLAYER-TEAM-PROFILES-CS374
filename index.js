@@ -1,8 +1,3 @@
-//Search bar
-let userInput = document.getElementById("UserSearch")
-userInput.addEventListener('input', displayUserInput)
-
-
 //Makes a post request to server
 //Expects a string argument
 //Will be used for SQL statements
@@ -24,6 +19,9 @@ function SQLPostRequest(SQLString)
 }
 
 
+//Search bar
+let userInput = document.getElementById("UserSearch")
+userInput.addEventListener('input', displayUserInput)
 function displayUserInput()
 {
     $("#ResultsDiv").empty();
@@ -38,13 +36,12 @@ function displayUserInput()
         }
         if(data[i].Name.includes("\\")) //if its a player
         {
-            $("#ResultsDiv").append('<li onclick = "detectIfPlayerOrTeam($(this).text());">' + data[i].Name.split("\\")[0]);
-            //let PlayerPictureURL = "https://www.basketball-reference.com/req/202011101/images/players/" + data[i].Name.split("\\")[1] + ".jpg"
+            $("#ResultsDiv").append('<li onclick = "goToPage($(this).text());">' + data[i].Name.split("\\")[0]);
             $("#ResultsDiv").append('<img itemscope="image" src = ' + getPlayerPictureFromName(data[i].Name) + ' width = 10%></img>')
         }
         else    //if its a team
         {
-            $("#ResultsDiv").append('<li onclick = detectIfPlayerOrTeam($(this).text());>' + data[i].Name);
+            $("#ResultsDiv").append('<li onclick = goToPage($(this).text());>' + data[i].Name);
             $("#ResultsDiv").append('<img class="teamlogo" itemscope="image" src= ' + getTeamPicutureFromName(data[i].Name) +' width = 10%></img>')
         }
     }
@@ -54,7 +51,7 @@ function displayUserInput()
     }
 }
 
-function detectIfPlayerOrTeam(NameString)
+function goToPage(NameString)
 {
     let Playerdata = SQLPostRequest('SELECT DISTINCT PlayerName FROM PlayerTotals WHERE PlayerName LIKE "' + NameString + '%"');
     let Teamdata = SQLPostRequest('SELECT DISTINCT TeamName FROM TeamTotals WHERE TeamName LIKE "' + NameString + '%"');
@@ -66,6 +63,10 @@ function detectIfPlayerOrTeam(NameString)
     {
         goToTeamPage(NameString)
     }
+    else
+    {
+        console.log("No data detected")
+    }
 }
 
 //Get player/team urls given the names of the players/teams
@@ -74,12 +75,17 @@ function getPlayerPictureFromName(playerName)
     let fullPlayerName = SQLPostRequest('SELECT DISTINCT PlayerName FROM PlayerTotals WHERE PlayerName LIKE "' + playerName + '%"');
     let playerSearchString = fullPlayerName[0].PlayerName.split("\\")[1]
     return "https://www.basketball-reference.com/req/202011101/images/players/" + playerSearchString + ".jpg"
-
 }
 
 function getTeamPicutureFromName(teamName)
 {
+    //Get team abbreviation from name via SQL
     let teamAbbreviation = SQLPostRequest('SELECT DISTINCT Abbr FROM TeamTotals WHERE TeamName LIKE "' + teamName + '%"');
+
+    //exceptions
+    if(teamAbbreviation[0].Abbr == "NOP") { console.log(123); teamAbbreviation[0].Abbr = "NOH" }
+
+    //return constructed URL
     return "https://d2p3bygnnzw9w3.cloudfront.net/req/202010221/tlogo/bbr/" + teamAbbreviation[0].Abbr + ".png"
 }
 
