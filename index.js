@@ -80,7 +80,9 @@ function goToPlayerPage(playerName)
     $.get( "/playerInfo.html", function( data ) {
     $( ".result" ).html( data );
     window.location.href = "/playerInfo.html#" + playerName
-    location.reload()
+    setTimeout(function(){
+        location.reload()
+    }, 40)
     });
 }
 
@@ -94,5 +96,8 @@ function goToTeamPage(teamName)
     $.get( "/TeamInfo.html", function( data ) {
     $( ".result" ).html( data );
     window.location.href = "/TeamInfo.html#" + teamName
+    setTimeout(function(){
+        location.reload()
+    }, 40)
 });
 }

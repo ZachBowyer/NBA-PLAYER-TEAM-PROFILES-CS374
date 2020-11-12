@@ -1,4 +1,4 @@
-function test123()
+function LoadPlayerInfo()
 {
     console.log("Player File loaded")
     let playerName = (extractUrlVariable(window.location.href))
