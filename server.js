@@ -95,8 +95,6 @@ app.get('/jquery-3.5.1.js', function(req, res){
     console.log("Sending jquery-3.5.1.js to client")
 });
 
-
-
 //Player html file sent to client
 app.get('/playerInfo.html', function(req, res){
   res.sendFile(path.join(__dirname + '/playerInfo.html'))
@@ -108,6 +106,11 @@ app.get('/playerInfo.css', function(req, res){
   console.log("Sending playerInfo.css")
 });
 
+app.get('/playerInfo.js', function(req, res){
+  res.sendFile(path.join(__dirname + '/playerInfo.js'))
+  console.log("Sending playerInfo.js")
+});
+
 //Team html file sent to client
 app.get('/TeamInfo.html', function(req, res){
   res.sendFile(path.join(__dirname + '/TeamInfo.html'))
@@ -117,4 +120,9 @@ app.get('/TeamInfo.html', function(req, res){
 app.get('/TeamInfo.css', function(req, res){
   res.sendFile(path.join(__dirname + '/TeamInfo.css'))
   console.log("Sending playerInfo.css")
+});
+
+app.get('/TeamInfo.js', function(req, res){
+  res.sendFile(path.join(__dirname + '/TeamInfo.js'))
+  console.log("Sending playerInfo.js")
 });
