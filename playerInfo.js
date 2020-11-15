@@ -13,20 +13,15 @@ function extractUrlVariable(urlString)
 function populateHTML(playerName)
 {
     document.getElementById("ProfilePicture").src = getPlayerPictureFromName(playerName)
-    let data = SQLPostRequest('SELECT * FROM PlayerTotals WHERE PlayerName LIKE "' + playerName + '%"');
+	let data = SQLPostRequest('SELECT * FROM PlayerTotals WHERE PlayerName LIKE "' + playerName + '%"');
 
     //Populate player stats table with data from DB using tabulator js
     var tabledata = data
 
     //create Tabulator on DOM element with id "example-table"
-    var table = new Tabulator("#example-table", 
+    var table = new Tabulator("#table", 
     {
-        //Table settings
-        //maxHeight:"90%",
-        //layout:"fitDataTable",
         data:tabledata, //assign data to table
-        //resizeable:true,
-
         //Define columns
  	    columns:[
 	    	{title:"Team", field:"Team", width:70},
@@ -51,15 +46,12 @@ function populateHTML(playerName)
 	    	                                        ],
 	});
 
-    console.log(data)
-	//Create main player impact pie chart
-
+	//Create impact pie chart
 	//if player has played for multiple teams, select the data from the total category
 	if(data.length > 1)
 	{
 		data = SQLPostRequest('SELECT * FROM PlayerTotals WHERE PlayerName LIKE "' + playerName + '%" and Team = "TOT"');
 	}
-    console.log(data)
 	var ctx = document.getElementById("myChart").getContext('2d');
 	var myChart = new Chart(ctx,{
 		type: 'pie',
@@ -78,4 +70,46 @@ function populateHTML(playerName)
 		}
 	});
 
+	//Create ranking pie charts
+	//Points rank
+	
+	//if player has played for multiple teams
+	console.log(playerName)
+
+	//if player has played for one team
+	let numberOfPlayers = SQLPostRequest('SELECT DISTINCT PlayerName FROM PlayerTotals').length;
+	let PTSRank = SQLPostRequest('SELECT * FROM (SELECT *, RANK () OVER (ORDER BY PTS DESC) RANK FROM PlayerTotals) WHERE PlayerName LIKE "' + playerName + '%"')[0].RANK;
+	let ASTRank = SQLPostRequest('SELECT * FROM (SELECT *, RANK () OVER (ORDER BY AST DESC) RANK FROM PlayerTotals) WHERE PlayerName LIKE "' + playerName + '%"')[0].RANK;
+	let REBRank = SQLPostRequest('SELECT * FROM (SELECT *, RANK () OVER (ORDER BY TRB DESC) RANK FROM (SELECT *, ORB+DRB as TRB FROM PlayerTotals)) WHERE PlayerName LIKE "' + playerName + '%"')[0].RANK;
+	let STLRank = SQLPostRequest('SELECT * FROM (SELECT *, RANK () OVER (ORDER BY STL DESC) RANK FROM PlayerTotals) WHERE PlayerName LIKE "' + playerName + '%"')[0].RANK;
+	let BLKRank = SQLPostRequest('SELECT * FROM (SELECT *, RANK () OVER (ORDER BY BLK DESC) RANK FROM PlayerTotals) WHERE PlayerName LIKE "' + playerName + '%"')[0].RANK;
+	let TOVRank = SQLPostRequest('SELECT * FROM (SELECT *, RANK () OVER (ORDER BY TOV DESC) RANK FROM PlayerTotals) WHERE PlayerName LIKE "' + playerName + '%"')[0].RANK;
+	createPlayerRankPieChart("PointsRankChart", playerName, numberOfPlayers, PTSRank, "Points")
+	createPlayerRankPieChart("AssistRankChart", playerName, numberOfPlayers, ASTRank, "Assists")
+	createPlayerRankPieChart("ReboundRankChart", playerName, numberOfPlayers, REBRank, "Rebounds")
+	createPlayerRankPieChart("StealRankChart", playerName, numberOfPlayers, STLRank, "Steals")
+	createPlayerRankPieChart("BlockRankChart", playerName, numberOfPlayers, BLKRank, "Blocks")
+	createPlayerRankPieChart("TurnoverRankChart", playerName, numberOfPlayers, TOVRank, "Turnover")
 };
+
+
+function createPlayerRankPieChart(ElementID, nameOfPlayer, numberOfPlayers, Rank, Category)
+{
+	var ctx = document.getElementById(ElementID).getContext('2d');
+	var myChart = new Chart(ctx,{
+		type: 'pie',
+		data: {
+		  labels: [nameOfPlayer, "Rest of league"],
+		  datasets: [{
+			backgroundColor: ["#3e95cd", "#8e5ea2"],
+			data: [numberOfPlayers-Rank, Rank]
+		  }]
+		},
+		options: {
+		  title: {
+			display: true,
+			text: Category + ': RANKS #' + Rank
+		  }
+		}
+	});
+}

@@ -51,11 +51,12 @@
     width: 20vh;
 }
 
-#example-table
+#table
 {
     position: absolute;
     top:33%;
-    width:45%
+    width:45%;
+    z-index: 3;
 }
 
 .tabulator-header
@@ -68,9 +69,33 @@
     font-size: 14px;
 }
 
-#PieCharts
+#ImpactPieChartDiv
 {
     position: absolute;
-    width: 57vh;
+    width: 50vh;
     right: 0px
+}
+
+#RankingPieChartsParent
+{
+    position: absolute;
+    left: -6vh;
+}
+
+#RankingPieChartsDiv1
+{
+    position: relative;
+    width: 35vh;
+    left: 2vh;
+    top: 46vh;
+    display: flex;
+}
+
+#RankingPieChartsDiv2
+{
+    position: relative;
+    width: 35vh;
+    left: 2vh;
+    top: 46vh;
+    display: flex;
 }
