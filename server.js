@@ -114,15 +114,26 @@ app.get('/playerInfo.js', function(req, res){
 //Team html file sent to client
 app.get('/TeamInfo.html', function(req, res){
   res.sendFile(path.join(__dirname + '/TeamInfo.html'))
-  console.log("Sending playerInfo.html")
+  console.log("Sending TeamInfo.html")
 });
 
 app.get('/TeamInfo.css', function(req, res){
   res.sendFile(path.join(__dirname + '/TeamInfo.css'))
-  console.log("Sending playerInfo.css")
+  console.log("Sending TeamInfo.css")
 });
 
 app.get('/TeamInfo.js', function(req, res){
   res.sendFile(path.join(__dirname + '/TeamInfo.js'))
-  console.log("Sending playerInfo.js")
+  console.log("Sending TeamInfo.js")
+});
+
+//Tabulator library files to client
+app.get('/tabulator.min.css', function(req, res){
+  res.sendFile(path.join(__dirname + '/tabulator.min.css'))
+  console.log("Sending /tabulator.min.css")
+});
+
+app.get('/tabulator.min.js', function(req, res){
+  res.sendFile(path.join(__dirname + '/tabulator.min.js'))
+  console.log("Sending /tabulator.min.js")
 });
