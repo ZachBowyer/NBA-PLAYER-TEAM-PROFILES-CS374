@@ -1,15 +1,3 @@
-#TitleP
-{
-    position: absolute;
-    display: block;
-    top: 5%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    text-align: center;
-    font-size: 5vh;
-    width: 80%;
-}
-
 #UserSearch
 {
     position: absolute;
@@ -51,9 +39,9 @@
 {
     position: absolute;
     display: block;
-    top: 20%;
-    left: 50%;
-    width: 40%;
+    top: 5%;
+    left: 31%;
+    width: 40vh;
     transform: translateX(-50%) translateY(-50%);
 }
 
@@ -67,5 +55,15 @@
 {
     position: absolute;
     top:33%;
-    width:100%;
+    width:45%
+}
+
+.tabulator-header
+{
+    font-size: 14px;
+}
+
+.tabulator-tableHolder
+{
+    font-size: 14px;
 }

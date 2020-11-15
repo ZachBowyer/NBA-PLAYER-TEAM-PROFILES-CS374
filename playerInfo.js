@@ -24,8 +24,10 @@ function populateHTML(playerName)
     var table = new Tabulator("#example-table", 
     {
         //Table settings
+        //maxHeight:"90%",
         //layout:"fitDataTable",
- 	    data:tabledata, //assign data to table
+        data:tabledata, //assign data to table
+        //resizeable:true,
 
         //Define columns
  	    columns:[
