@@ -72,14 +72,16 @@
 #ImpactPieChartDiv
 {
     position: absolute;
-    width: 50vh;
-    right: 0px
+    width: 44vh;
+    right: 0px;
+    top: -1px;
 }
 
 #RankingPieChartsParent
 {
     position: absolute;
     left: -6vh;
+    top: 52vh;
 }
 
 #RankingPieChartsDiv1
@@ -87,7 +89,6 @@
     position: relative;
     width: 35vh;
     left: 2vh;
-    top: 46vh;
     display: flex;
 }
 
@@ -96,6 +97,5 @@
     position: relative;
     width: 35vh;
     left: 2vh;
-    top: 46vh;
     display: flex;
 }

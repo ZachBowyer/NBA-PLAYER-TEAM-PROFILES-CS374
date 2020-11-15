@@ -74,7 +74,7 @@ function populateHTML(playerName)
 	//Points rank
 	
 	//if player has played for multiple teams
-	console.log(playerName)
+	console.log(SQLPostRequest('SELECT * FROM (SELECT *, RANK () OVER (ORDER BY PTS DESC) RANK FROM PlayerTotals) WHERE PlayerName LIKE "' + playerName + '%"'))
 
 	//if player has played for one team
 	let numberOfPlayers = SQLPostRequest('SELECT DISTINCT PlayerName FROM PlayerTotals').length;
