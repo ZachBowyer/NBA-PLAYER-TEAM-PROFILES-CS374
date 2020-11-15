@@ -67,3 +67,10 @@
 {
     font-size: 14px;
 }
+
+#PieCharts
+{
+    position: absolute;
+    width: 57vh;
+    right: 0px
+}

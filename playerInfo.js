@@ -17,8 +17,6 @@ function populateHTML(playerName)
 
     //Populate player stats table with data from DB using tabulator js
     var tabledata = data
-    console.log(data)
-    console.log(tabledata)
 
     //create Tabulator on DOM element with id "example-table"
     var table = new Tabulator("#example-table", 
@@ -51,5 +49,33 @@ function populateHTML(playerName)
 	    	{title:"2PA", field:"TwoPointM", width:60},
 	    	{title:"2PM", field:"TwoPointM", width:65},
 	    	                                        ],
-    });
-}
+	});
+
+    console.log(data)
+	//Create main player impact pie chart
+
+	//if player has played for multiple teams, select the data from the total category
+	if(data.length > 1)
+	{
+		data = SQLPostRequest('SELECT * FROM PlayerTotals WHERE PlayerName LIKE "' + playerName + '%" and Team = "TOT"');
+	}
+    console.log(data)
+	var ctx = document.getElementById("myChart").getContext('2d');
+	var myChart = new Chart(ctx,{
+		type: 'pie',
+		data: {
+		  labels: ["Points", "Assists", "REB", "BLK/STL", "TOV/FOULS"],
+		  datasets: [{
+			backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9", "#FF4C33"],
+			data: [data[0].PTS, data[0].AST, (data[0].DRB + data[0].ORB), data[0].BLK + data[0].STL, data[0].TOV + data[0].PF]
+		  }]
+		},
+		options: {
+		  title: {
+			display: true,
+			text: 'Impact'
+		  }
+		}
+	});
+
+};

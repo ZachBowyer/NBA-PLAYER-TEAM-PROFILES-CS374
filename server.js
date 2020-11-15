@@ -137,3 +137,9 @@ app.get('/tabulator.min.js', function(req, res){
   res.sendFile(path.join(__dirname + '/tabulator.min.js'))
   console.log("Sending /tabulator.min.js")
 });
+
+//chart.js file to client
+app.get('/Chart.min.js', function(req, res){
+  res.sendFile(path.join(__dirname + '/Chart.min.js'))
+  console.log("Sending /Chart.min.js")
+});
