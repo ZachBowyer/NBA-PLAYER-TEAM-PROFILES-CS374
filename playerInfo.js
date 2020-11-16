@@ -21,10 +21,17 @@ function populateHTML(playerName)
     //create Tabulator on DOM element with id "example-table"
     var table = new Tabulator("#table", 
     {
-        data:tabledata, //assign data to table
+		data:tabledata, //assign data to table
+		//tooltips:true,
+		//tooltipGenerationMode:"hover",
         //Define columns
  	    columns:[
-	    	{title:"Team", field:"Team", width:70},
+	    	{title:"Team", field:"Team", width:70, formatter: "link", cellClick:function(e, cell){
+				console.log(cell.getValue())
+				let fullName = SQLPostRequest('SELECT * FROM TeamTotals WHERE Abbr = "' + cell.getValue() + '"')[0].TeamName
+				console.log(fullName)
+				goToTeamPage(fullName)
+			},},
 	    	{title:"PTS", field:"PTS", width:60},
 	    	{title:"AST", field:"AST", width:65},
 	    	{title:"ORB", field:"ORB", width:65},
