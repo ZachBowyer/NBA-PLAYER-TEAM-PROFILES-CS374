@@ -84,6 +84,7 @@ function getTeamPicutureFromName(teamName)
 
     //exceptions
     if(teamAbbreviation[0].Abbr == "NOP") { console.log(123); teamAbbreviation[0].Abbr = "NOH" }
+    if(teamAbbreviation[0].Abbr == "BRK") { console.log(123); teamAbbreviation[0].Abbr = "NJN" }
 
     //return constructed URL
     return "https://d2p3bygnnzw9w3.cloudfront.net/req/202010221/tlogo/bbr/" + teamAbbreviation[0].Abbr + ".png"

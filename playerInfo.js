@@ -22,9 +22,6 @@ function populateHTML(playerName)
     var table = new Tabulator("#table", 
     {
 		data:tabledata, //assign data to table
-		//tooltips:true,
-		//tooltipGenerationMode:"hover",
-        //Define columns
  	    columns:[
 	    	{title:"Team", field:"Team", width:70, formatter: "link", cellClick:function(e, cell){
 				console.log(cell.getValue())

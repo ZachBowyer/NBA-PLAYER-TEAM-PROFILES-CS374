@@ -47,6 +47,13 @@
     background-color: rgb(189, 202, 202);
 }
 
+/*
+/////////////////////////////////////
+/////////////////////////////////////
+/////////////////////////////////////
+/////////////////////////////////////
+*/
+
 #SearchAndResultsDiv
 {
     position: absolute;
@@ -55,4 +62,20 @@
     left: 50%;
     width: 40%;
     transform: translateX(-50%) translateY(-50%);
+}
+
+#RosterTable
+{
+    position: absolute;
+    top:33%;
+    width:58vh;
+    z-index: 3;
+}
+.tabulator-header
+{
+    font-size: 14px;
+}
+.tabulator-tableHolder
+{
+    font-size: 14px;
 }
