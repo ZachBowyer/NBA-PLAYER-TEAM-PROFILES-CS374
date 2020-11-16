@@ -19,6 +19,13 @@ function populateHTML(teamName)
                              + teamName + '%") AS T1 INNER JOIN PlayerTotals ON T1.Abbr = PlayerTotals.Team')
     console.log(tabledata);
 
+    //Convert playerName strings into just names
+    for(var i = 0; i < tabledata.length; i++)
+    {
+        tabledata[i].PlayerName = tabledata[i].PlayerName.split("\\")[0]
+    }
+
+
     var table = new Tabulator("#RosterTable",
     {
         data:tabledata, //assign data to table
