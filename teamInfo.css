@@ -58,9 +58,9 @@
 {
     position: absolute;
     display: block;
-    top: 20%;
-    left: 50%;
-    width: 40%;
+    top: 5%;
+    left: 31%;
+    width: 40vh;
     transform: translateX(-50%) translateY(-50%);
 }
 
@@ -78,4 +78,13 @@
 .tabulator-tableHolder
 {
     font-size: 14px;
+}
+
+#PieCharts
+{
+    position: absolute;
+    width: 44vh;
+    left: 60vh;
+    top: 26vh;
+    display: flex;
 }

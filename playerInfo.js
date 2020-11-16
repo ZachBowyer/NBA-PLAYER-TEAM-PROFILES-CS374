@@ -75,12 +75,6 @@ function populateHTML(playerName)
 	});
 
 	//Create ranking pie charts
-	//Points rank
-	
-	//if player has played for multiple teams
-	console.log(SQLPostRequest('SELECT * FROM (SELECT *, RANK () OVER (ORDER BY PTS DESC) RANK FROM PlayerTotals) WHERE PlayerName LIKE "' + playerName + '%"'))
-
-	//if player has played for one team
 	let numberOfPlayers = SQLPostRequest('SELECT DISTINCT PlayerName FROM PlayerTotals').length;
 	let PTSRank = SQLPostRequest('SELECT * FROM (SELECT *, RANK () OVER (ORDER BY PTS DESC) RANK FROM PlayerTotals) WHERE PlayerName LIKE "' + playerName + '%"')[0].RANK;
 	let ASTRank = SQLPostRequest('SELECT * FROM (SELECT *, RANK () OVER (ORDER BY AST DESC) RANK FROM PlayerTotals) WHERE PlayerName LIKE "' + playerName + '%"')[0].RANK;
@@ -88,25 +82,25 @@ function populateHTML(playerName)
 	let STLRank = SQLPostRequest('SELECT * FROM (SELECT *, RANK () OVER (ORDER BY STL DESC) RANK FROM PlayerTotals) WHERE PlayerName LIKE "' + playerName + '%"')[0].RANK;
 	let BLKRank = SQLPostRequest('SELECT * FROM (SELECT *, RANK () OVER (ORDER BY BLK DESC) RANK FROM PlayerTotals) WHERE PlayerName LIKE "' + playerName + '%"')[0].RANK;
 	let TOVRank = SQLPostRequest('SELECT * FROM (SELECT *, RANK () OVER (ORDER BY TOV DESC) RANK FROM PlayerTotals) WHERE PlayerName LIKE "' + playerName + '%"')[0].RANK;
-	createPlayerRankPieChart("PointsRankChart", playerName, numberOfPlayers, PTSRank, "Points")
-	createPlayerRankPieChart("AssistRankChart", playerName, numberOfPlayers, ASTRank, "Assists")
-	createPlayerRankPieChart("ReboundRankChart", playerName, numberOfPlayers, REBRank, "Rebounds")
-	createPlayerRankPieChart("StealRankChart", playerName, numberOfPlayers, STLRank, "Steals")
-	createPlayerRankPieChart("BlockRankChart", playerName, numberOfPlayers, BLKRank, "Blocks")
-	createPlayerRankPieChart("TurnoverRankChart", playerName, numberOfPlayers, TOVRank, "Turnover")
+	RankPieChart("PointsRankChart", playerName, numberOfPlayers, PTSRank, "Points")
+	RankPieChart("AssistRankChart", playerName, numberOfPlayers, ASTRank, "Assists")
+	RankPieChart("ReboundRankChart", playerName, numberOfPlayers, REBRank, "Rebounds")
+	RankPieChart("StealRankChart", playerName, numberOfPlayers, STLRank, "Steals")
+	RankPieChart("BlockRankChart", playerName, numberOfPlayers, BLKRank, "Blocks")
+	RankPieChart("TurnoverRankChart", playerName, numberOfPlayers, TOVRank, "Turnover")
 };
 
 
-function createPlayerRankPieChart(ElementID, nameOfPlayer, numberOfPlayers, Rank, Category)
+function RankPieChart(ElementID, name, numberOfOther, Rank, Category)
 {
 	var ctx = document.getElementById(ElementID).getContext('2d');
 	var myChart = new Chart(ctx,{
 		type: 'pie',
 		data: {
-		  labels: [nameOfPlayer, "Rest of league"],
+		  labels: [name, "Rest of league"],
 		  datasets: [{
 			backgroundColor: ["#3e95cd", "#8e5ea2"],
-			data: [numberOfPlayers-Rank, Rank]
+			data: [numberOfOther-Rank, Rank]
 		  }]
 		},
 		options: {
