@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="author" content="">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="index.css" rel="stylesheet">
+  <link href="tabulator.min.css" rel="stylesheet">
+</head>
+
+<body onload = "DisplayAllPlayers()">
+    <div id = "Header">
+    <div id = "TeamTab" onclick = goToAllPlayersPage()>
+      <p>All players</p>
+    </div>
+    <div id = "PlayerTab" onclick = goToAllTeamsPage()>
+      <p>All teams</p>
+    </div>
+    <div id = "DataTab" onclick = goToDownloadPage()>
+      <p>Download Data</p>
+    </div>
+    <div id = "HomePageTab" onclick = goToHomePage()>
+      <p>Home Page</p>
+    </div>
+  </div>
+
+  <div id="table" style="top:30vh"></div>
+
+  <div id = "SearchAndResultsDiv">
+    <input type = "text" id = "UserSearch" placeholder = "Please enter a player or team name....">
+    <div id = "ResultsDiv"></div>
+  </div>
+
+  <script src = "jquery-3.5.1.js"></script>
+  <script src="index.js"></script>
+  <script type="text/javascript" src="tabulator.min.js"></script>
+  <script>
+    function DisplayAllPlayers()
+    {
+        console.log("Displaying all players")
+
+        let tableData = SQLPostRequest('SELECT * FROM PlayerTotals')
+        var table = new Tabulator("#table", 
+        {
+            data:tableData, //assign data to table
+            columns:[{title: "Name", field: "PlayerName"},
+            {title:"PTS", field:"PTS", width:60},
+	    	{title:"AST", field:"AST", width:65},
+	    	{title:"ORB", field:"ORB", width:65},
+	    	{title:"DRB", field:"DRB", width:65},
+	    	{title:"BLK", field:"BLK", width:65},
+	    	{title:"FGA", field:"FGA", width:65},
+	    	{title:"FT", field:"FT", width:60},
+	    	{title:"FTA", field:"FTA", width:65},
+	    	{title:"G", field:"G", width:60},
+	    	{title:"GS", field:"GS", width:60},
+	    	{title:"MP", field:"MP", width:60},
+	    	{title:"PF", field:"PF", width:60},
+	    	{title:"STL", field:"STL", width:65},
+	    	{title:"TOV", field:"TOV", width:65},
+	    	{title:"3PA", field:"ThreePointA", width:60},
+	    	{title:"3PM", field:"ThreePointM", width:65},
+	    	{title:"2PA", field:"TwoPointM", width:60},
+	    	{title:"2PM", field:"TwoPointM", width:65},],
+        });
+    }
+  </script>
+</body>
+
+</html>

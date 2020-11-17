@@ -11,8 +11,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //const cors = require('cors')
 //app.use(cors())
 
-
-
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
@@ -74,72 +72,36 @@ app.post('/', function (req, res) {
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
 
+//var fs = require('fs');
+//var files = fs.readdirSync('../NBA-PLAYER-TEAM-PROFILES-CS374');
+//console.log(files);
+
 //Sends files to client
 app.get('/', function(req, res){
    res.sendFile(path.join(__dirname + '/index.html'));
    console.log("Sending index.html to client")
 });
 
-app.get('/index.js', function(req, res){
-       res.sendFile(path.join(__dirname + '/index.js'));
-       console.log("Sending index.js to client")
-});
+//Sends files to client
+function FileGetRequest(FileName)
+{
+  app.get('/' + FileName, function(req, res){
+  res.sendFile(path.join(__dirname + '/' + FileName));
+  console.log("Sending " + FileName + " to client")
+  });
+}
 
-app.get('/index.css', function(req, res){
-    res.sendFile(path.join(__dirname + '/index.css'));
-    console.log("Sending index.css to client")
-});
-
-app.get('/jquery-3.5.1.js', function(req, res){
-    res.sendFile(path.join(__dirname + '/jquery-3.5.1.js'));
-    console.log("Sending jquery-3.5.1.js to client")
-});
-
-//Player html file sent to client
-app.get('/playerInfo.html', function(req, res){
-  res.sendFile(path.join(__dirname + '/playerInfo.html'))
-  console.log("Sending playerInfo.html")
-});
-
-app.get('/playerInfo.css', function(req, res){
-  res.sendFile(path.join(__dirname + '/playerInfo.css'))
-  console.log("Sending playerInfo.css")
-});
-
-app.get('/playerInfo.js', function(req, res){
-  res.sendFile(path.join(__dirname + '/playerInfo.js'))
-  console.log("Sending playerInfo.js")
-});
-
-//Team html file sent to client
-app.get('/TeamInfo.html', function(req, res){
-  res.sendFile(path.join(__dirname + '/TeamInfo.html'))
-  console.log("Sending TeamInfo.html")
-});
-
-app.get('/TeamInfo.css', function(req, res){
-  res.sendFile(path.join(__dirname + '/TeamInfo.css'))
-  console.log("Sending TeamInfo.css")
-});
-
-app.get('/TeamInfo.js', function(req, res){
-  res.sendFile(path.join(__dirname + '/TeamInfo.js'))
-  console.log("Sending TeamInfo.js")
-});
-
-//Tabulator library files to client
-app.get('/tabulator.min.css', function(req, res){
-  res.sendFile(path.join(__dirname + '/tabulator.min.css'))
-  console.log("Sending /tabulator.min.css")
-});
-
-app.get('/tabulator.min.js', function(req, res){
-  res.sendFile(path.join(__dirname + '/tabulator.min.js'))
-  console.log("Sending /tabulator.min.js")
-});
-
-//chart.js file to client
-app.get('/Chart.min.js', function(req, res){
-  res.sendFile(path.join(__dirname + '/Chart.min.js'))
-  console.log("Sending /Chart.min.js")
-});
+FileGetRequest('index.js')
+FileGetRequest('index.css')
+FileGetRequest('jquery-3.5.1.js')
+FileGetRequest('playerInfo.html')
+FileGetRequest('playerInfo.css')
+FileGetRequest('playerInfo.js')
+FileGetRequest('TeamInfo.html')
+FileGetRequest('TeamInfo.css')
+FileGetRequest('TeamInfo.js')
+FileGetRequest('tabulator.min.css')
+FileGetRequest('tabulator.min.js')
+FileGetRequest('Chart.min.js')
+FileGetRequest('AllPlayers.html')
+FileGetRequest('AllTeams.html')

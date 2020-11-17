@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="author" content="">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="index.css" rel="stylesheet">
+  <link href="tabulator.min.css" rel="stylesheet">
+</head>
+
+<body onload = "DisplayAllPlayers()">
+    <div id = "Header">
+    <div id = "TeamTab" onclick = goToAllPlayersPage()>
+      <p>All players</p>
+    </div>
+    <div id = "PlayerTab" onclick = goToAllTeamsPage()>
+      <p>All teams</p>
+    </div>
+    <div id = "DataTab" onclick = goToDownloadPage()>
+      <p>Download Data</p>
+    </div>
+    <div id = "HomePageTab" onclick = goToHomePage()>
+      <p>Home Page</p>
+    </div>
+  </div>
+
+  <div id="table" style="top:30vh"></div>
+
+  <div id = "SearchAndResultsDiv">
+    <input type = "text" id = "UserSearch" placeholder = "Please enter a player or team name....">
+    <div id = "ResultsDiv"></div>
+  </div>
+
+  <script src = "jquery-3.5.1.js"></script>
+  <script src="index.js"></script>
+  <script type="text/javascript" src="tabulator.min.js"></script>
+  <script>
+    function DisplayAllPlayers()
+    {
+        console.log("Displaying all teams")
+
+        let tableData = SQLPostRequest('SELECT * FROM TeamTotals')
+        var table = new Tabulator("#table", 
+        {
+            data:tableData, //assign data to table
+            columns:[
+            {title: "Name", field: "TeamName"},
+            {title: "GP", field: "GamesPlayed"},
+            {title: "M", field: "Minutes"},
+            {title: "FGM", field: "FGM"},
+            {title: "FGA", field: "FGA"},
+            {title: "3PM", field: "ThreePointM"},
+            {title: "3PA", field: "ThreePointA"},
+            {title: "2PM", field: "TwoPointM"},
+            {title: "2PA", field: "TwoPointA"},
+            {title: "FT", field: "FT"},
+            {title: "FTA", field: "FTA"},
+            {title: "ORB", field: "ORB"},
+            {title: "DRB", field: "DRB"},
+            {title: "AST", field: "AST"},
+            {title: "STL", field: "STL"},
+            {title: "BLK", field: "BLK"},
+            {title: "TOV", field: "TOV"},
+            {title: "PF", field: "PF"},
+            {title: "PTS", field: "PTS"},
+            ],
+        });
+    }
+  </script>
+</body>
+
+</html>

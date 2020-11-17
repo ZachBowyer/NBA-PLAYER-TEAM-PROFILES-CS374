@@ -100,6 +100,41 @@ function createPlayerSearchString(playerName)
     return searchString;
 }
 
+function goToAllPlayersPage()
+{
+    console.log(1);
+    $.get( "/AllPlayers.html", function( data ) {
+    $( ".result" ).html( data );
+    window.location.href = "/AllPlayers.html";
+    setTimeout(function(){
+        location.reload()
+    }, 40)
+    });
+}
+
+function goToAllTeamsPage()
+{
+    console.log(1);
+    $.get( "/AllTeams.html", function( data ) {
+    $( ".result" ).html( data );
+    window.location.href = "/AllTeams.html";
+    setTimeout(function(){
+        location.reload()
+    }, 40)
+    });
+}
+
+function goToDownloadPage()
+{
+    console.log(1);
+}
+
+function goToHomePage()
+{
+    window.location.href = "/";
+}
+
+
 
 //////////////////////////////////////////
 //////////////////////////////////////////
