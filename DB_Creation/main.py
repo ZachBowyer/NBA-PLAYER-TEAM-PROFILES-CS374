@@ -116,37 +116,75 @@ else:
              PTS INTEGER);""")
     print("Table PlayerTotals created")
 
-
+if(checkIfTableExists(cursor, 'PlayerShotCharts')):
+    print("PlayerShotCharts table exists")
+else:
+    conn.execute("""CREATE TABLE PlayerShotCharts
+                    (year INTEGER,
+                     month INTEGER,
+                     day INTEGER,
+                     winner TEXT,
+                     loser TEXT,
+                     x TEXT,
+                     y TEXT,
+                     play VARCHAR(255),
+                     time_remaining TEXT,
+                     shots_by VARCHAR(255),
+                     outcome TEXT);""")
+    print("Table PlayerShotCharts created")
 
 
 TeamTotalData = getDataFromCsv('TeamTotals.csv')
 TeamOppTotalData = getDataFromCsv('TeamOppTotals.csv')
 PlayerData = getDataFromCsv('PlayerTotals.csv')
+ShotChartData = getDataFromCsv('shots-2019.csv')
 print(len(TeamTotalData))
 print(len(TeamOppTotalData))
 print(len(PlayerData))
+print(len(ShotChartData))
 
+ShotChartData.pop(0)
 TeamTotalData.pop(0)
 TeamOppTotalData.pop(0)
 PlayerData.pop(0)
 
+#ShotChartData[1].pop(0)
+#ShotChartData[1].pop(0)
+#ShotChartData[1].pop(9)
+#ShotChartData[1].pop(len(ShotChartData[1])-1)
+#ShotChartData[1].pop(len(ShotChartData[1])-1)
+#ShotChartData[1].pop(len(ShotChartData[1])-1)
+#ShotChartData[1].pop(len(ShotChartData[1])-1)
+#ShotChartData[1].pop(len(ShotChartData[1])-1)
+#print(ShotChartData[1])
+#print(len(ShotChartData[1]))
+
 
 #Insert data into db file
 for i in range(len(TeamTotalData)):
-    print(tuple(TeamTotalData[i]))
     cursor.execute('INSERT INTO TeamTotals VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', tuple(TeamTotalData[i]))
 
 for i in range(len(TeamOppTotalData)):
-    print(tuple(TeamOppTotalData[i]))
     cursor.execute('INSERT INTO TeamOppTotals VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', tuple(TeamOppTotalData[i]))
 
 for i in range(len(PlayerData)):
-    print(tuple(PlayerData[i]))
     cursor.execute('INSERT INTO PlayerTotals VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', tuple(PlayerData[i]))
 
-#cursor.execute(""" INSERT INTO TeamTotals VALUES()""")
+for i in range(len(ShotChartData)):
+    ShotChartData[i].pop(0)
+    ShotChartData[i].pop(0)
+    ShotChartData[i].pop(9)
+    ShotChartData[i].pop(len(ShotChartData[i])-1)
+    ShotChartData[i].pop(len(ShotChartData[i])-1)
+    ShotChartData[i].pop(len(ShotChartData[i])-1)
+    ShotChartData[i].pop(len(ShotChartData[i])-1)
+    ShotChartData[i].pop(len(ShotChartData[i])-1)
+    ShotChartData[i][7].replace(',',' ')
+    #print(ShotChartData[i][7])
+    #print(ShotChartData[i])
+    #print(len(ShotChartData[i]))
+    cursor.execute('INSERT INTO PlayerShotCharts VALUES(?,?,?,?,?,?,?,?,?,?,?)', tuple(ShotChartData[i]))
 
 conn.commit()
-
 conn.close()
 

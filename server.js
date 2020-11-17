@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //SQLITE 3 setup
 const sqlite3 = require('sqlite3').verbose();
-let db = new sqlite3.Database('./DBFILES/NBA_Stats_Official.db', sqlite3.OPEN_READWRITE, (err) => {
+let db = new sqlite3.Database('./DBFILES/NBA_Stats.db', sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
       return console.error(err.message);
     }
