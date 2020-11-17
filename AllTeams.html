@@ -46,7 +46,9 @@
         {
             data:tableData, //assign data to table
             columns:[
-            {title: "Name", field: "TeamName"},
+            {title: "Name", field: "TeamName", formatter: "link", cellClick:function(e,cell){
+				      goToTeamPage(cell.getValue())
+            }},
             {title: "GP", field: "GamesPlayed"},
             {title: "M", field: "Minutes"},
             {title: "FGM", field: "FGM"},

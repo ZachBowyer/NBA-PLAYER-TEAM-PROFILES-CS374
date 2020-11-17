@@ -28,8 +28,8 @@ function populateHTML(teamName)
         data:tabledata, //assign data to table
         columns:[
             {title:"Name", field:"PlayerName", width:170, formatter: "link", cellClick:function(e, cell){
-				console.log(cell.getValue())
-				goToPlayerPage(cell.getValue())
+				    console.log(cell.getValue())
+				    goToPlayerPage(cell.getValue())
             },},
             {title:"POS", field:"Pos", width:100},
 	    	{title:"AGE", field:"Age", width:65},

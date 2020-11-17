@@ -45,8 +45,10 @@
         var table = new Tabulator("#table", 
         {
             data:tableData, //assign data to table
-            columns:[{title: "Name", field: "PlayerName"},
-            {title:"PTS", field:"PTS", width:60},
+        columns:[{title: "Name", field: "PlayerName", formatter: "link", cellClick:function(e,cell){
+          goToPlayerPage(cell.getValue())
+        }},
+        {title:"PTS", field:"PTS", width:60},
 	    	{title:"AST", field:"AST", width:65},
 	    	{title:"ORB", field:"ORB", width:65},
 	    	{title:"DRB", field:"DRB", width:65},
