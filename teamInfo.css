@@ -58,7 +58,7 @@
 {
     position: absolute;
     display: block;
-    top: 5%;
+    top: 10vh;
     left: 31%;
     width: 40vh;
     transform: translateX(-50%) translateY(-50%);
@@ -87,4 +87,31 @@
     left: 60vh;
     top: 26vh;
     display: flex;
+}
+
+#Header
+{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    background-color: darkgray;
+    top: 0px;
+    left: 0px;
+}
+
+    #TeamTab, #PlayerTab, #DataTab, #HomePageTab
+    {
+        background-color: gray;
+        width:25%;
+        text-align: center;
+    }
+    #TeamTab:hover, #PlayerTab:hover, #DataTab:hover, #HomePageTab:hover
+    {
+        background-color: #8c8c8c;
+    }
+
+#ProfilePicture
+{
+    position: absolute;
+    top:56px;
 }

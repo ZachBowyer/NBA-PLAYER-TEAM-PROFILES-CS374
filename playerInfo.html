@@ -12,6 +12,21 @@
 </head>
 
 <body onload = "LoadPlayerInfo()">
+  <div id = "Header">
+    <div id = "TeamTab" onclick = goToAllPlayersPage()>
+      <p>All players</p>
+    </div>
+    <div id = "PlayerTab" onclick = goToAllTeamsPage()>
+      <p>All teams</p>
+    </div>
+    <div id = "DataTab" onclick = goToDownloadPage()>
+      <p>Download Data</p>
+    </div>
+    <div id = "HomePageTab" onclick = goToHomePage()>
+      <p>Home Page</p>
+    </div>
+  </div>
+
   <div id = "SearchAndResultsDiv">
     <input type = "text" id = "UserSearch" placeholder = "Please enter a player or team name....">
     <div id = "ResultsDiv"></div>
