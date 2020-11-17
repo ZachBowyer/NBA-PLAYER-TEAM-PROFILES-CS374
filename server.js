@@ -82,15 +82,6 @@ app.get('/', function(req, res){
    console.log("Sending index.html to client")
 });
 
-//Sends files to client
-function FileGetRequest(FileName)
-{
-  app.get('/' + FileName, function(req, res){
-  res.sendFile(path.join(__dirname + '/' + FileName));
-  console.log("Sending " + FileName + " to client")
-  });
-}
-
 FileGetRequest('index.js')
 FileGetRequest('index.css')
 FileGetRequest('jquery-3.5.1.js')
@@ -105,3 +96,26 @@ FileGetRequest('tabulator.min.js')
 FileGetRequest('Chart.min.js')
 FileGetRequest('AllPlayers.html')
 FileGetRequest('AllTeams.html')
+FileGetRequest('Downloads.html')
+FileGetRequest('Downloads.css')
+
+FileGetRequest('DB_Creation/PlayerTotals.csv')
+FileGetRequest('DB_Creation/Salaries.csv')
+FileGetRequest('DB_Creation/shots-2019.csv')
+FileGetRequest('DB_Creation/TeamOppTotals.csv')
+FileGetRequest('DB_Creation/TeamTotals.csv')
+FileGetRequest('DBFILES/NBA_Stats_Official.db')
+
+app.get('/Downloads.html', function(req, res){
+   res.sendFile(path.join(__dirname + '/Downloads.htmll'));
+   console.log("Sending Downloads.html to client")
+});
+
+//Sends files to client given name
+function FileGetRequest(FileName)
+{
+  app.get('/' + FileName, function(req, res){
+  res.sendFile(path.join(__dirname + '/' + FileName));
+  console.log("Sending " + FileName + " to client")
+  });
+}
