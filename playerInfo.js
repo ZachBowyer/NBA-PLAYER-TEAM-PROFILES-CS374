@@ -88,8 +88,34 @@ function populateHTML(playerName)
 	RankPieChart("StealRankChart", playerName, numberOfPlayers, STLRank, "Steals")
 	RankPieChart("BlockRankChart", playerName, numberOfPlayers, BLKRank, "Blocks")
 	RankPieChart("TurnoverRankChart", playerName, numberOfPlayers, TOVRank, "Turnover")
-};
 
+
+	//Create player shot chart
+	let ShotData = SQLPostRequest('SELECT * FROM PlayerShotCharts WHERE shots_by LIKE "' + playerName.split("\\")[0] + '%"')
+	console.log(ShotData)
+	console.log(playerName)
+	for(var i = 0; i < ShotData.length; i++)
+	{
+		let symbol = "●";
+		if(ShotData[i].outcome == "missed")
+		{
+			symbol = "×"
+		}
+
+		ShotData[i].x = ShotData[i].x.split("p")[0];
+		ShotData[i].x = parseInt(ShotData[i].x);
+		ShotData[i].x = ShotData[i].x / 1.5;
+		ShotData[i].x = ShotData[i].x.toString() + "px";
+
+		ShotData[i].y = ShotData[i].y.split("p")[0];
+		ShotData[i].y = parseInt(ShotData[i].y);
+		ShotData[i].y = ShotData[i].y / 1.5;
+		ShotData[i].y = ShotData[i].y.toString() + "px";
+
+
+		$("#ShotChartParent").append('<div style="position:absolute;top:' + ShotData[i].x + ';left:' + ShotData[i].y + '" tip="' + ShotData[i].play + '">'+symbol+'</div>');
+	}
+};
 
 function RankPieChart(ElementID, name, numberOfOther, Rank, Category)
 {
