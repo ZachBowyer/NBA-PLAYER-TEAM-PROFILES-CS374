@@ -14,6 +14,7 @@ function populateHTML(playerName)
 {
     document.getElementById("ProfilePicture").src = getPlayerPictureFromName(playerName)
 	let data = SQLPostRequest('SELECT * FROM PlayerTotals WHERE PlayerName LIKE "' + playerName + '%"');
+	console.log(data)
 
     //Populate player stats table with data from DB using tabulator js
     var tabledata = data
@@ -45,7 +46,7 @@ function populateHTML(playerName)
 	    	{title:"TOV", field:"TOV", width:65},
 	    	{title:"3PA", field:"ThreePointA", width:60},
 	    	{title:"3PM", field:"ThreePointM", width:65},
-	    	{title:"2PA", field:"TwoPointM", width:60},
+	    	{title:"2PA", field:"TwoPointA", width:60},
 	    	{title:"2PM", field:"TwoPointM", width:65},
 	    	                                        ],
 	});
