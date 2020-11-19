@@ -25,6 +25,26 @@ def getDataFromCsv(FilePath):
     return DataList
 
 
+TeamTotalData = getDataFromCsv('TeamTotals.csv')
+TeamOppTotalData = getDataFromCsv('TeamOppTotals.csv')
+PlayerData = getDataFromCsv('PlayerTotals.csv')
+ShotChartData = getDataFromCsv('shots-2019.csv')
+SalaryData = getDataFromCsv('PlayerSalaries.csv')
+print(len(TeamTotalData))
+print(len(TeamOppTotalData))
+print(len(PlayerData))
+print(len(ShotChartData))
+print(len(SalaryData))
+
+ShotChartData.pop(0)
+TeamTotalData.pop(0)
+TeamOppTotalData.pop(0)
+PlayerData.pop(0)
+SalaryData.pop(0)
+
+
+
+
 if(checkIfTableExists(cursor, 'TeamTotals')):
     print("TeamTotals table exists")
 else:
@@ -51,10 +71,6 @@ else:
     PF INTEGER,
     PTS INTEGER);""")
     print("Table TeamTotals created")
-
-
-
-
 
 
 #Creates TeamOpponentTotals table
@@ -133,31 +149,15 @@ else:
                      outcome TEXT);""")
     print("Table PlayerShotCharts created")
 
-
-TeamTotalData = getDataFromCsv('TeamTotals.csv')
-TeamOppTotalData = getDataFromCsv('TeamOppTotals.csv')
-PlayerData = getDataFromCsv('PlayerTotals.csv')
-ShotChartData = getDataFromCsv('shots-2019.csv')
-print(len(TeamTotalData))
-print(len(TeamOppTotalData))
-print(len(PlayerData))
-print(len(ShotChartData))
-
-ShotChartData.pop(0)
-TeamTotalData.pop(0)
-TeamOppTotalData.pop(0)
-PlayerData.pop(0)
-
-#ShotChartData[1].pop(0)
-#ShotChartData[1].pop(0)
-#ShotChartData[1].pop(9)
-#ShotChartData[1].pop(len(ShotChartData[1])-1)
-#ShotChartData[1].pop(len(ShotChartData[1])-1)
-#ShotChartData[1].pop(len(ShotChartData[1])-1)
-#ShotChartData[1].pop(len(ShotChartData[1])-1)
-#ShotChartData[1].pop(len(ShotChartData[1])-1)
-#print(ShotChartData[1])
-#print(len(ShotChartData[1]))
+if(checkIfTableExists(cursor, 'PlayerSalaries')):
+    print("PlayerSalaries table exists")
+else:
+    conn.execute("""CREATE TABLE PlayerSalaries
+                    (rank INTEGER,
+                     player VARCHAR(255),
+                     Team TEXT,
+                     Salary TEXT);""")
+    print("Table PlayerSalaries created")
 
 
 #Insert data into db file
@@ -180,10 +180,11 @@ for i in range(len(ShotChartData)):
     ShotChartData[i].pop(len(ShotChartData[i])-1)
     ShotChartData[i].pop(len(ShotChartData[i])-1)
     ShotChartData[i][7].replace(',',' ')
-    #print(ShotChartData[i][7])
-    #print(ShotChartData[i])
-    #print(len(ShotChartData[i]))
     cursor.execute('INSERT INTO PlayerShotCharts VALUES(?,?,?,?,?,?,?,?,?,?,?)', tuple(ShotChartData[i]))
+
+for i in range(len(SalaryData)):
+    cursor.execute('INSERT INTO PlayerSalaries VALUES(?,?,?,?)', tuple(SalaryData[i]))
+
 
 conn.commit()
 conn.close()

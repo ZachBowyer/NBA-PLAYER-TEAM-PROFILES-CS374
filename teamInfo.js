@@ -15,8 +15,15 @@ function populateHTML(teamName)
     document.getElementById("ProfilePicture").src = getTeamPicutureFromName(teamName);
 
     //Create roster table via tabulator js
-    let tabledata = SQLPostRequest('SELECT PlayerName, Pos, Age FROM (SELECT TeamTotals.Abbr FROM TeamTotals WHERE TeamName LIKE "'
-                             + teamName + '%") AS T1 INNER JOIN PlayerTotals ON T1.Abbr = PlayerTotals.Team')
+    //let tabledata = SQLPostRequest('SELECT PlayerName, Pos, Age FROM (SELECT TeamTotals.Abbr FROM TeamTotals WHERE TeamName LIKE "'
+    //                         + teamName + '%") AS T1 INNER JOIN PlayerTotals ON T1.Abbr = PlayerTotals.Team')                    
+              
+    //let tabledata = SQLPostRequest('SELECT * FROM PlayerTotals INNER JOIN PlayerSalaries ON PlayerTotals.PlayerName = PlayerSalaries.player')
+
+    let tabledata = SQLPostRequest('SELECT PlayerName, Pos, Age, Salary FROM (SELECT TeamTotals.Abbr FROM TeamTotals WHERE TeamName LIKE "'
+                             + teamName + '%") AS T1 INNER JOIN (SELECT * FROM PlayerTotals INNER JOIN PlayerSalaries ON PlayerTotals.PlayerName = PlayerSalaries.player) AS T2 ON T1.Abbr = T2.Team')                    
+                             
+    console.log("tableData is: ", tabledata)
 
     //Convert playerName strings into just names
     for(var i = 0; i < tabledata.length; i++)
@@ -33,6 +40,7 @@ function populateHTML(teamName)
             },},
             {title:"POS", field:"Pos", width:100},
 	    	{title:"AGE", field:"Age", width:65},
+	    	{title:"Salary", field:"Salary", width:65},
         ]
     });
 
