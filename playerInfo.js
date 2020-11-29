@@ -1,7 +1,9 @@
+let playername = 0;
+
 function LoadPlayerInfo()
 {
     console.log("Player File loaded")
-    let playerName = (extractUrlVariable(window.location.href))
+    playerName = (extractUrlVariable(window.location.href));
     populateHTML(playerName)
 }
 
@@ -93,7 +95,6 @@ function populateHTML(playerName)
 
 	//Create player shot chart
 	let ShotData = SQLPostRequest('SELECT * FROM PlayerShotCharts WHERE shots_by LIKE "' + playerName.split("\\")[0] + '%"')
-	console.log(ShotData)
 	console.log(playerName)
 	for(var i = 0; i < ShotData.length; i++)
 	{
@@ -137,4 +138,69 @@ function RankPieChart(ElementID, name, numberOfOther, Rank, Category)
 		  }
 		}
 	});
+
+	document.getElementById("Selections").addEventListener('change', (event) => {
+		let SelectorValue = event.target.value;
+		switch(SelectorValue)
+		{
+			case "Total":
+				console.log("Total")
+				table_data = SQLPostRequest('SELECT * FROM PlayerTotals WHERE PlayerName LIKE "' + playerName + '%"')
+				ChangeTableAndChartData(table_data)
+				break;
+			case "Per_game":
+				console.log("Per Game")
+				table_data = SQLPostRequest('SELECT (PTS / G) FROM PlayerTotals WHERE PlayerName LIKE "' + playerName + '%"')
+				ChangeTableAndChartData(table_data)
+				console.log(table_data)
+				break;
+			case "Per_36":
+				console.log("Per 36")
+				break;
+			case "Per_minute":
+				console.log("Per minute")
+				break;
+		}
+	});
+
+}
+
+function ChangeTableAndChartData(tableData)
+{
+	//Change contents of the table
+	table = new Tabulator("#table", 
+    {
+		data:tableData, //assign data to table
+ 	    columns:[
+	    	{title:"Team", field:"Team", width:70, formatter: "link", cellClick:function(e, cell){
+				console.log(cell.getValue())
+				let fullName = SQLPostRequest('SELECT * FROM TeamTotals WHERE Abbr = "' + cell.getValue() + '"')[0].TeamName
+				console.log(fullName)
+				goToTeamPage(fullName)
+			},},
+	    	{title:"PTS", field:"PTS", width:60},
+	    	{title:"AST", field:"AST", width:65},
+	    	{title:"ORB", field:"ORB", width:65},
+	    	{title:"DRB", field:"DRB", width:65},
+	    	{title:"BLK", field:"BLK", width:65},
+	    	{title:"FGA", field:"FGA", width:65},
+	    	{title:"FT", field:"FT", width:60},
+	    	{title:"FTA", field:"FTA", width:65},
+	    	{title:"G", field:"G", width:60},
+	    	{title:"GS", field:"GS", width:60},
+	    	{title:"MP", field:"MP", width:60},
+	    	{title:"PF", field:"PF", width:60},
+	    	{title:"STL", field:"STL", width:65},
+	    	{title:"TOV", field:"TOV", width:65},
+	    	{title:"3PA", field:"ThreePointA", width:60},
+	    	{title:"3PM", field:"ThreePointM", width:65},
+	    	{title:"2PA", field:"TwoPointA", width:60},
+	    	{title:"2PM", field:"TwoPointM", width:65},
+	    	                                        ],
+	});
+
+	//Change contents of impact pie chart
+
+	//Change contents of ranking pie charts
+
 }

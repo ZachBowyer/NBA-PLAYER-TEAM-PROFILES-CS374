@@ -58,22 +58,30 @@
     top: 51px;
 }
 
-#table
+#tableWrapper
 {
     position: absolute;
+    display: flex;
     top:232px;
     width:45%;
     z-index: 3;
 }
 
-.tabulator-header
+#table
+{
+    position: relative;
+}
+
+.tabulator-header, .tabulator-tableHolder
 {
     font-size: 14px;
 }
 
-.tabulator-tableHolder
+#Selections
 {
-    font-size: 14px;
+    position: relative;
+    width: 8vw;
+    height: 3vh
 }
 
 #ImpactPieChartDiv
