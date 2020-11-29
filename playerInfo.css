@@ -51,11 +51,20 @@
     transform: translateX(-50%) translateY(-50%);
 }
 
-#ProfilePicture
+#ProfileWrapper
 {
     position: absolute;
     width: 20vh;
-    top: 51px;
+    top: 39px;
+}
+#ProfilePicture
+{
+    position: relative;
+}
+#ProfileName
+{
+    position: relative;
+    width: 200px;
 }
 
 #tableWrapper

@@ -4,7 +4,8 @@ let numberOfPlayers = 0;
 function LoadPlayerInfo()
 {
     console.log("Player File loaded")
-    playerName = decodeURI((window.location.href).split("#")[1]);
+	playerName = decodeURI((window.location.href).split("#")[1]);
+	document.getElementById("ProfileName").innerHTML = playerName
     populateHTML(playerName)
 }
 
