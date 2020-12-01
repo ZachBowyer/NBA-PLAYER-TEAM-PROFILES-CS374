@@ -89,6 +89,19 @@
     display: flex;
 }
 
+#PlayerChartWrapper
+{
+    top: 0px;
+    width: 45%;
+    right: 30px;
+    position: absolute;
+}
+
+#Players
+{
+    width: 100%;
+}
+
 #Header
 {
     position: absolute;

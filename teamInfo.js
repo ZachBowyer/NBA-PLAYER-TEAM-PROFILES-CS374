@@ -47,6 +47,46 @@ function populateHTML(teamName)
     let DEF_PTSRank = SQLPostRequest('SELECT * FROM (SELECT *, RANK () OVER (ORDER BY PTS ASC) RANK FROM TeamOPPTotals WHERE Abbr != "AVG") WHERE TeamName LIKE "' + teamName + '%"')[0].RANK;
     RankPieChart("OFF", teamName, numberOfTeams, PTSRank, "Points scored")
     RankPieChart("DEF", teamName, numberOfTeams, DEF_PTSRank, "Points allowed")
+
+    //create player impact for team pie chart
+    let players = SQLPostRequest('SELECT PlayerName, PTS, AST, DRB, ORB, BLK, STL FROM PlayerTotals WHERE Team LIKE "' + teamAbbreviation + '%"')
+    let playerImpactWeights = []
+    let playerImpacts = []
+    let playerNames = []
+    let teamTotals = SQLPostRequest('SELECT * FROM TeamTotals WHERE Abbr LIKE "' + teamAbbreviation + '%"')
+    for(var i = 0; i < players.length; i++)
+    {
+      let PointsWeight = (players[i].PTS / teamTotals[0].PTS) * 100;
+      let ASTWeight = (players[i].AST / teamTotals[0].AST) * 100;
+      let TRBWeight = (players[i].DRB + players[i].ORB) / (teamTotals[0].ORB + teamTotals[0].DRB) * 100;
+      let BLKWeight = (players[i].BLK / teamTotals[0].BLK) * 100;
+      let STLWeight = (players[i].STL / teamTotals[0].STL) * 100;
+      let totalPlayerWeight = PointsWeight + ASTWeight + TRBWeight + BLKWeight + STLWeight; 
+      let playerInfo = { Name: players[i].PlayerName.split("\\")[0], Score: totalPlayerWeight}
+      playerImpactWeights.push(playerInfo)
+      playerImpacts.push(totalPlayerWeight)
+      playerNames.push(players[i].PlayerName.split("\\")[0])
+    }
+    console.log(playerImpactWeights);
+
+    var ctx = document.getElementById("Players").getContext('2d');
+	  var myChart = new Chart(ctx,{
+		type: 'pie',
+		data: {
+		  labels: playerNames,
+		  datasets: [{
+			backgroundColor: ["#3e95cd", "#8e5ea2", "Yellow", "Silver", "Gray", "Black", "Red", "Olive", "Lime", "Green", "Aqua", "Teal", "Blue", "Navy", "Fuchsia", "Purple", "Silver", "Gray", "Black"],
+			data: playerImpacts
+		  }]
+		},
+		options: {
+		  title: {
+			display: true,
+			text: 'Player Impacts'
+		  }
+		}
+  });
+  
 }
 
 function RankPieChart(ElementID, name, numberOfOther, Rank, Category)
