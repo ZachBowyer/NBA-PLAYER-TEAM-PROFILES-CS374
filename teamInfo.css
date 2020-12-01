@@ -83,17 +83,17 @@
 #PieCharts
 {
     position: absolute;
-    width: 44vh;
-    left: 60vh;
-    top: 26vh;
+    width: 300px;
+    left: 73vh;
+    top: 50px;
     display: flex;
 }
 
 #PlayerChartWrapper
 {
-    top: 0px;
-    width: 45%;
-    right: 30px;
+    top: 360px;
+    width: 419px;
+    left: 90vh;
     position: absolute;
 }
 

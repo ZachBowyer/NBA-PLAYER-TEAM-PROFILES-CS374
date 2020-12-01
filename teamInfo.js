@@ -73,16 +73,24 @@ function populateHTML(teamName)
 	  var myChart = new Chart(ctx,{
 		type: 'pie',
 		data: {
-		  labels: playerNames,
+      labels: playerNames,
 		  datasets: [{
-			backgroundColor: ["#3e95cd", "#8e5ea2", "Yellow", "Silver", "Gray", "Black", "Red", "Olive", "Lime", "Green", "Aqua", "Teal", "Blue", "Navy", "Fuchsia", "Purple", "Silver", "Gray", "Black"],
+			backgroundColor: ["#3e95cd", "#8e5ea2", "Yellow", "Silver", "Gray", "Black", "Red", "Olive", "Lime", "Green", "Aqua", "Teal", "Blue", "Navy", "Fuchsia", "Purple", "Silver", "Gray", "Black", "Red", "Aqua", "Olive", "Lime"],
 			data: playerImpacts
 		  }]
 		},
 		options: {
+      legend: {
+            display: true,
+            position: 'right',
+            labels: {
+                fontSize: 6,
+            }
+        },
 		  title: {
-			display: true,
-			text: 'Player Impacts'
+        display: true,
+        position: 'left',
+			  text: 'Player Impacts'
 		  }
 		}
   });
