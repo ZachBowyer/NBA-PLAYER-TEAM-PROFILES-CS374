@@ -20,7 +20,6 @@ function populateHTML(teamName)
                              + teamName + '%") AS T1 INNER JOIN PlayerTotals ON T1.Abbr = PlayerTotals.Team) AS Q INNER JOIN (SELECT * FROM PlayerSalaries WHERE Team LIKE "' + teamAbbreviation + '%") AS Q2 ON Q.PlayerName = Q2.Player')                    
               
     console.log(teamAbbreviation)
-    console.log("tableData is: ", tabledata)
 
     //Convert playerName strings into just names
     for(var i = 0; i < tabledata.length; i++)
@@ -94,7 +93,33 @@ function populateHTML(teamName)
 		  }
 		}
   });
-  
+
+  //Create team's shot chart
+  let players2 = SQLPostRequest('SELECT * FROM PlayerTotals WHERE Team LIKE "' + teamAbbreviation + '%"')
+  for(var i = 0; i < players2.length; i++)
+  {
+    let playerName = players2[i].PlayerName.split("\\")[0];
+	  let ShotData = SQLPostRequest('SELECT * FROM PlayerShotCharts WHERE shots_by LIKE "' + playerName + '%"')
+
+  	for(var j = 0; j < ShotData.length; j++)
+  	{
+  		let symbol = "●";
+  		if(ShotData[j].outcome == "missed")
+  		{
+  			symbol = "×"
+  		}
+
+	  	ShotData[j].x = ShotData[j].x.split("p")[0];
+	  	ShotData[j].x = parseInt(ShotData[j].x);
+	  	ShotData[j].x = ShotData[j].x / 1.5;
+	  	ShotData[j].x = ShotData[j].x.toString() + "px";
+	  	ShotData[j].y = ShotData[j].y.split("p")[0];
+	  	ShotData[j].y = parseInt(ShotData[j].y);
+	  	ShotData[j].y = ShotData[j].y / 1.5;
+	  	ShotData[j].y = ShotData[j].y.toString() + "px";
+	  	$("#ShotChartParent").append('<div style="position:absolute;top:' + ShotData[j].x + ';left:' + ShotData[j].y + '" tip="' + ShotData[j].play + '">'+symbol+'</div>');
+	  }
+  }
 }
 
 function RankPieChart(ElementID, name, numberOfOther, Rank, Category)

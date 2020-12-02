@@ -59,25 +59,10 @@
     position: absolute;
     display: block;
     top: 10vh;
-    left: 31%;
+    left: 301px;
     width: 40vh;
     transform: translateX(-50%) translateY(-50%);
-}
-
-#RosterTable
-{
-    position: absolute;
-    top:33%;
-    width:64vh;
-    z-index: 3;
-}
-.tabulator-header
-{
-    font-size: 14px;
-}
-.tabulator-tableHolder
-{
-    font-size: 14px;
+    z-index: 5;
 }
 
 #PieCharts
@@ -123,8 +108,52 @@
         background-color: #8c8c8c;
     }
 
-#ProfilePicture
+
+#PictureTableShotChartWrapper
 {
     position: absolute;
-    top:56px;
+    top: 51px;
 }
+
+    #ProfilePicture
+    {
+        position: relative;
+        top:0px;
+    }
+
+    #ShotChartParent2
+    {
+        position: relative;
+        width: 334px;
+        left: 5vh;
+        top: 30px;
+    }
+        #ShotChartParent
+        {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+            #court
+            {
+                position: absolute;
+                width: 100%;
+                top: -10px;
+            }
+
+#RosterTable
+{
+    position: relative;
+    top:33%;
+    width:64vh;
+    z-index: 3;
+}
+.tabulator-header
+{
+    font-size: 14px;
+}
+.tabulator-tableHolder
+{
+    font-size: 14px;
+}
+
