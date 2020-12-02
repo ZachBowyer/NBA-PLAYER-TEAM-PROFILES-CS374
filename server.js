@@ -6,6 +6,7 @@ var app = express();
 app.listen(3000);
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
@@ -21,12 +22,6 @@ let db = new sqlite3.Database('./DBFILES/NBA_Stats_V3.db', sqlite3.OPEN_READWRIT
     }
     console.log('Connected to the in-memory SQlite database.');
   });
-
-function CloseDB(DBConnectionVar)
-{
-    console.log("Closed DB connection", DBConnectionVar);
-    DBConnectionVar.close();
-}
 
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
@@ -75,7 +70,6 @@ files = fs.readdirSync('../NBA-PLAYER-TEAM-PROFILES-CS374/DB_Creation');
 for(var i = 0; i < files.length; i++)
 {
   FileGetRequest('DB_Creation/' + files[i])
-  console.log(files[i])
 }
 FileGetRequest('DBFILES/NBA_Stats_V3.db')
 
