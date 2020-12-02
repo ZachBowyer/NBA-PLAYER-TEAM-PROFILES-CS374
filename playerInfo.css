@@ -46,7 +46,7 @@
     position: absolute;
     display: block;
     top: 10vh;
-    left: 31%;
+    left: 320px;
     width: 40vh;
     transform: translateX(-50%) translateY(-50%);
 }
@@ -72,7 +72,7 @@
     position: absolute;
     display: flex;
     top:232px;
-    width:45%;
+    width:403%;
     z-index: 3;
 }
 
@@ -97,15 +97,15 @@
 {
     position: absolute;
     width: 44vh;
-    right: 0px;
-    top: 40px;
+    left: 105vh;
+    top: 80px;
 }
 
 #RankingPieChartsParent
 {
-    position: absolute;
-    left: -6vh;
-    top: 332px;
+    position: relative;
+    left: -9vh;
+    top: 107px;
 }
 
 #RankingPieChartsDiv1
@@ -150,8 +150,8 @@
 {
     position: absolute;
     width: 334px;
-    right: 4vh;
-    top: 56vh;
+    left: 102vh;
+    top: 71vh;
 }
 #ShotChartParent
 {
