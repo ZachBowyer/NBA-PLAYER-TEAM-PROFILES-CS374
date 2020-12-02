@@ -37,12 +37,10 @@ function displayUserInput()
         if(data[i].Name.includes("\\")) //if its a player
         {
             $("#ResultsDiv").append('<li onclick = "goToPage($(this).text());">' + data[i].Name.split("\\")[0]);
-            //$("#ResultsDiv").append('<img itemscope="image" src = ' + getPlayerPictureFromName(data[i].Name) + ' width = 10%></img>')
         }
         else    //if its a team
         {
             $("#ResultsDiv").append('<li onclick = goToPage($(this).text());>' + data[i].Name);
-            //$("#ResultsDiv").append('<img class="teamlogo" itemscope="image" src= ' + getTeamPicutureFromName(data[i].Name) +' width = 10%></img>')
         }
     }
     if(userInput.value == "")

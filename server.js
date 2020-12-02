@@ -7,10 +7,6 @@ var app = express();
 app.listen(3000);
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//currently doing nothing
-//const cors = require('cors')
-//app.use(cors())
-
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
@@ -44,9 +40,6 @@ function CloseDB(DBConnectionVar)
 //client request is a SQL string
 //server will run sql statement in via sqlite 
 //and will return data as json to client
-
-
-let invalidCharacters = ["\\", "'", "\""]
 
 app.post('/', function (req, res) {
   console.log("POST request detected, received data: ", req.body)
