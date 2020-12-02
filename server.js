@@ -2,7 +2,6 @@
 var express = require('express');
 var path = require("path")
 const bodyParser = require('body-parser');
-
 var app = express();
 app.listen(3000);
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -65,50 +64,32 @@ app.post('/', function (req, res) {
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
 
-//var fs = require('fs');
-//var files = fs.readdirSync('../NBA-PLAYER-TEAM-PROFILES-CS374');
-//console.log(files);
+//Make it possible for the server to accept get requests for all files in the directory
+var fs = require('fs');
+var files = fs.readdirSync('../NBA-PLAYER-TEAM-PROFILES-CS374');
+for(var i = 0; i < files.length; i++)
+{
+  FileGetRequest(files[i])
+}
+files = fs.readdirSync('../NBA-PLAYER-TEAM-PROFILES-CS374/DB_Creation');
+for(var i = 0; i < files.length; i++)
+{
+  FileGetRequest('DB_Creation/' + files[i])
+  console.log(files[i])
+}
+FileGetRequest('DBFILES/NBA_Stats_V3.db')
 
-//Sends files to client
+//Sends initial files to client at root
 app.get('/', function(req, res){
    res.sendFile(path.join(__dirname + '/index.html'));
    console.log("Sending index.html to client")
-});
-
-FileGetRequest('index.js')
-FileGetRequest('index.css')
-FileGetRequest('jquery-3.5.1.js')
-FileGetRequest('playerInfo.html')
-FileGetRequest('playerInfo.css')
-FileGetRequest('playerInfo.js')
-FileGetRequest('TeamInfo.html')
-FileGetRequest('TeamInfo.css')
-FileGetRequest('TeamInfo.js')
-FileGetRequest('tabulator.min.css')
-FileGetRequest('tabulator.min.js')
-FileGetRequest('Chart.min.js')
-FileGetRequest('AllPlayers.html')
-FileGetRequest('AllTeams.html')
-FileGetRequest('Downloads.html')
-FileGetRequest('Downloads.css')
-
-FileGetRequest('DB_Creation/PlayerTotals.csv')
-FileGetRequest('DB_Creation/Salaries.csv')
-FileGetRequest('DB_Creation/shots-2019.csv')
-FileGetRequest('DB_Creation/TeamOppTotals.csv')
-FileGetRequest('DB_Creation/TeamTotals.csv')
-FileGetRequest('DBFILES/NBA_Stats_V3.db')
-
-app.get('/Downloads.html', function(req, res){
-   res.sendFile(path.join(__dirname + '/Downloads.htmll'));
-   console.log("Sending Downloads.html to client")
 });
 
 //Sends files to client given name
 function FileGetRequest(FileName)
 {
   app.get('/' + FileName, function(req, res){
-  res.sendFile(path.join(__dirname + '/' + FileName));
-  console.log("Sending " + FileName + " to client")
+    res.sendFile(path.join(__dirname + '/' + FileName));
+    console.log("Sending " + FileName + " to client")
   });
 }
