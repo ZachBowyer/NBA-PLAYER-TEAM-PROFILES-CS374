@@ -104,7 +104,7 @@ FileGetRequest('DB_Creation/Salaries.csv')
 FileGetRequest('DB_Creation/shots-2019.csv')
 FileGetRequest('DB_Creation/TeamOppTotals.csv')
 FileGetRequest('DB_Creation/TeamTotals.csv')
-FileGetRequest('DBFILES/NBA_Stats_Official.db')
+FileGetRequest('DBFILES/NBA_Stats_V3.db')
 
 app.get('/Downloads.html', function(req, res){
    res.sendFile(path.join(__dirname + '/Downloads.htmll'));

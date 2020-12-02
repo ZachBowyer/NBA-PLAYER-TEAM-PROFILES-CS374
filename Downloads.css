@@ -4,4 +4,27 @@
     top: 12vh;
     left: 40%;
     display: grid;
+    width: 450px;
+}
+
+#AboutSentence
+{
+    position: relative;
+    width: 305px;
+}
+
+#SearchAndResultsDiv
+{
+    position: absolute;
+    left: 221px;
+    width: 310px;
+    top: 100px;
+}
+
+#Logo
+{
+    position: absolute;
+    width: 150px;
+    left: 79%;
+    top: 100px;
 }

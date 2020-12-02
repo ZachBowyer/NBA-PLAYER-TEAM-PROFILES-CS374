@@ -11,6 +11,12 @@
 </head>
 
 <body>
+
+    <div id = "SearchAndResultsDiv">
+    <input type = "text" id = "UserSearch" placeholder = "Please enter a player or team name....">
+    <div id = "ResultsDiv"></div>
+  </div>
+
     <div id = "Header">
     <div id = "TeamTab" onclick = goToAllPlayersPage()>
       <p>All players</p>
@@ -27,13 +33,23 @@
   </div>
   
   <div id = "Links">
+    <u style = "font-size: 40px;"> ABOUT: </u>
+    <div id = "AboutSentence">
+    <p> Player and team data for this project is from <a href="https://www.basketball-reference.com/">https://www.basketball-reference.com/</a> <br>
+        Shot chart data is from: <a href="https://theccalderon.github.io/2019/12/11/scrapping-shots-basketball-reference.html#datasets">https://theccalderon.github.io/2019/12/11/scrapping-shots-basketball-reference.html#datasets</a>
+        Project repository found here: <a href = "https://github.com/ZachBowyer/NBA-PLAYER-TEAM-PROFILES-CS374/">https://github.com/ZachBowyer/NBA-PLAYER-TEAM-PROFILES-CS374/</a>
+    </p>
+    <u style = "font-size: 30px;"> DATA: </u>
+    </div>
     <a href="/DB_Creation/PlayerTotals.csv"> PlayerTotals.csv </a>
     <a href="/DB_Creation/Salaries.csv"> Salaries.csv </a>
     <a href="/DB_Creation/shots-2019.csv"> shots-2019.csv </a>
     <a href="/DB_Creation/TeamOppTotals.csv"> TeamOppTotals.csv </a>
     <a href="/DB_Creation/TeamTotals.csv"> TeamTotals.csv </a>
-    <a href="/DBFILES/NBA_Stats_Official.db"> NBA_Stats_Official.db </a>
+    <a href="/DBFILES/NBA_Stats_V3.db"> NBA_Stats_V3.db </a>
   </div>
+
+  <img id = "Logo" src = https://www.pngkey.com/png/full/968-9682817_nba-logo.png>
 
   <script src = "jquery-3.5.1.js"></script>
   <script src="index.js"></script>
