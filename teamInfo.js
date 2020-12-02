@@ -12,7 +12,7 @@ function extractUrlVariable(urlString)
 
 function populateHTML(teamName)
 {
-    document.getElementById("ProfilePicture").src = getTeamPicutureFromName(teamName);
+    document.getElementById("ProfilePicture").src = getTeamPictureFromName(teamName);
     let teamAbbreviation = SQLPostRequest('SELECT Abbr From TeamTotals WHERE TeamName LIKE "' + teamName + '%"')[0].Abbr
 
     //Create roster table via tabulator js

@@ -77,7 +77,7 @@ function getPlayerPictureFromName(playerName)
     return "https://www.basketball-reference.com/req/202011101/images/players/" + playerSearchString + ".jpg"
 }
 
-function getTeamPicutureFromName(teamName)
+function getTeamPictureFromName(teamName)
 {
     //Get team abbreviation from name via SQL
     let teamAbbreviation = SQLPostRequest('SELECT DISTINCT Abbr FROM TeamTotals WHERE TeamName LIKE "' + teamName + '%"');
@@ -85,6 +85,7 @@ function getTeamPicutureFromName(teamName)
     //exceptions
     if(teamAbbreviation[0].Abbr == "NOP") { console.log(123); teamAbbreviation[0].Abbr = "NOH" }
     if(teamAbbreviation[0].Abbr == "BRK") { console.log(123); teamAbbreviation[0].Abbr = "NJN" }
+    if(teamAbbreviation[0].Abbr == "CHO") { console.log(123); teamAbbreviation[0].Abbr = "CHA" }
 
     //return constructed URL
     return "https://d2p3bygnnzw9w3.cloudfront.net/req/202010221/tlogo/bbr/" + teamAbbreviation[0].Abbr + ".png"
