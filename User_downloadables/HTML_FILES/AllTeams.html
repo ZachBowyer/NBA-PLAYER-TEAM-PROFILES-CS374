@@ -42,7 +42,7 @@
     //and the league average
     function DisplayAllTeams()
     {
-        let tableData = SQLPostRequest('SELECT * FROM TeamTotals')
+        let tableData = SQLPostRequest('SELECT * FROM TeamTotals WHERE TEAMNAME != "League Average"')
         var table = new Tabulator("#table", 
         {
             layout:"fitColumns",
