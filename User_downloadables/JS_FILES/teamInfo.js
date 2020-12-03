@@ -116,7 +116,6 @@ function LoadTeamInfo()
 
 		  //Place shots onto page
       $("#ShotChartParent").append('<div style="position:absolute;top:' + ShotData[j].x + 'px;left:' + ShotData[j].y + 'px">'+symbol+'</div>')
-      num++;
     }
   }
 }

@@ -42,6 +42,9 @@ function displayUserInput()
     //Once suggested results are retreived, display 12 of them
     for(var i = 0; (i < 12 && i < data.length); i++)
     {
+        //Exception
+        if (data[i].Name == "League Average") {return}
+
         //If data is a player, go to player page
         //Or if data is a team, go to the team page
         if(data[i].Name.includes("\\")) { $("#ResultsDiv").append('<li onclick = "goToPage($(this).text());">' + data[i].Name.split("\\")[0]); }
