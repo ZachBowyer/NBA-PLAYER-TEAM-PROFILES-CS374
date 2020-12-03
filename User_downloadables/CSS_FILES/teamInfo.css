@@ -1,57 +1,27 @@
-#TitleP
+#Header
 {
     position: absolute;
-    display: block;
-    top: 5%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    text-align: center;
-    font-size: 5vh;
-    width: 80%;
-}
-
-#UserSearch
-{
-    position: absolute;
-    display: block;
+    display: flex;
     width: 100%;
-    padding: 0px 0px;
-    margin: 0px 0;
-    box-sizing: border-box;
-    z-index: 1;
+    background-color: darkgray;
+    top: 0px;
+    left: 0px;
 }
-
-#ResultsDiv
-{
-    position: absolute;
-    width: 100%;
-    margin: 9px 0;
-    box-sizing: border-box;
-    padding: 10px 0px;
-}
-
-#ResultsDiv li  
-{
-  position: relative;
-  background-color: #f6f6f6; 
-  padding: 0px; 
-  font-size: 10px; 
-  color: black;
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-#ResultsDiv li:hover
-{
-    background-color: rgb(189, 202, 202);
-}
+    #TeamTab, #PlayerTab, #DataTab, #HomePageTab
+    {
+        background-color: gray;
+        width:25%;
+        text-align: center;
+    }
+    #TeamTab:hover, #PlayerTab:hover, #DataTab:hover, #HomePageTab:hover
+    {
+        background-color: #8c8c8c;
+    }
 
 /*
-/////////////////////////////////////
-/////////////////////////////////////
-/////////////////////////////////////
-/////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
 */
 
 #SearchAndResultsDiv
@@ -64,63 +34,63 @@
     transform: translateX(-50%) translateY(-50%);
     z-index: 5;
 }
-
-#PieCharts
-{
-    position: absolute;
-    width: 300px;
-    left: 73vh;
-    top: 50px;
-    display: flex;
-}
-
-#PlayerChartWrapper
-{
-    top: 360px;
-    width: 419px;
-    left: 90vh;
-    position: absolute;
-}
-
-#Players
-{
-    width: 100%;
-}
-
-#Header
-{
-    position: absolute;
-    display: flex;
-    width: 100%;
-    background-color: darkgray;
-    top: 0px;
-    left: 0px;
-}
-
-    #TeamTab, #PlayerTab, #DataTab, #HomePageTab
+    #UserSearch
     {
-        background-color: gray;
-        width:25%;
-        text-align: center;
+        position: absolute;
+        display: block;
+        width: 100%;
+        padding: 0px 0px;
+        margin: 0px 0;
+        box-sizing: border-box;
+        z-index: 1;
     }
-    #TeamTab:hover, #PlayerTab:hover, #DataTab:hover, #HomePageTab:hover
+    #ResultsDiv
     {
-        background-color: #8c8c8c;
+        position: absolute;
+        width: 100%;
+        margin: 9px 0;
+        box-sizing: border-box;
+        padding: 10px 0px;
     }
+        #ResultsDiv li  
+        {
+          position: relative;
+          background-color: #f6f6f6; 
+          padding: 0px; 
+          font-size: 10px; 
+          color: black;
+          display: block;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        #ResultsDiv li:hover
+        {
+            background-color: rgb(189, 202, 202);
+        }
 
+/*
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+*/
 
 #PictureTableShotChartWrapper
 {
     position: absolute;
     top: 51px;
 }
-
     #ProfilePicture
     {
         position: relative;
         top:0px;
     }
-
+    #RosterTable
+    {
+        position: relative;
+        top:33%;
+        width:64vh;
+        z-index: 3;
+    }
     #ShotChartParent2
     {
         position: relative;
@@ -140,14 +110,38 @@
                 width: 100%;
                 top: -10px;
             }
+/*
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+*/
 
-#RosterTable
+#PieCharts
 {
-    position: relative;
-    top:33%;
-    width:64vh;
-    z-index: 3;
+    position: absolute;
+    width: 300px;
+    left: 73vh;
+    top: 50px;
+    display: flex;
 }
+#PlayerChartWrapper
+{
+    top: 360px;
+    width: 419px;
+    left: 90vh;
+    position: absolute;
+}
+    #Players
+    {
+        width: 100%;
+    }
+
+/*
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+*/
+
 .tabulator-header
 {
     font-size: 14px;
