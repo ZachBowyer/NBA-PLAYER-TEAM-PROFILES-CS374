@@ -1,44 +1,26 @@
-#UserSearch
+#Header
 {
     position: absolute;
-    display: block;
+    display: flex;
     width: 100%;
-    padding: 0px 0px;
-    margin: 0px 0;
-    box-sizing: border-box;
-    z-index: 1;
+    background-color: darkgray;
+    top: 0px;
+    left: 0px;
 }
-
-#ResultsDiv
-{
-    position: absolute;
-    width: 100%;
-    margin: 9px 0;
-    box-sizing: border-box;
-    padding: 10px 0px;
-}
-
-#ResultsDiv li  
-{
-  position: relative;
-  background-color: #f6f6f6; 
-  padding: 0px; 
-  font-size: 10px; 
-  color: black;
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-#ResultsDiv li:hover
-{
-    background-color: rgb(189, 202, 202);
-}
+    #TeamTab, #PlayerTab, #DataTab, #HomePageTab
+    {
+        background-color: gray;
+        width:25%;
+        text-align: center;
+    }
+    #TeamTab:hover, #PlayerTab:hover, #DataTab:hover, #HomePageTab:hover
+    {
+        background-color: #8c8c8c;
+    }
 /*
-/////////////////////////////////////
-/////////////////////////////////////
-/////////////////////////////////////
-/////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
 */
 
 #SearchAndResultsDiv
@@ -50,6 +32,47 @@
     width: 40vh;
     transform: translateX(-50%) translateY(-50%);
 }
+    #UserSearch
+    {
+        position: absolute;
+        display: block;
+        width: 100%;
+        padding: 0px 0px;
+        margin: 0px 0;
+        box-sizing: border-box;
+        z-index: 1;
+    }
+
+    #ResultsDiv
+    {
+        position: absolute;
+        width: 100%;
+        margin: 9px 0;
+        box-sizing: border-box;
+        padding: 10px 0px;
+    }
+
+    #ResultsDiv li  
+    {
+      position: relative;
+      background-color: #f6f6f6; 
+      padding: 0px; 
+      font-size: 10px; 
+      color: black;
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    #ResultsDiv li:hover
+    {
+        background-color: rgb(189, 202, 202);
+    }
+/*
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+*/
 
 #ProfileWrapper
 {
@@ -57,41 +80,60 @@
     width: 20vh;
     top: 39px;
 }
-#ProfilePicture
-{
-    position: relative;
-}
-#ProfileName
-{
-    position: relative;
-    width: 200px;
-}
+    #ProfileName
+    {
+        position: relative;
+        width: 200px;
+    }
+    #ProfilePicture
+    {
+        position: relative;
+    }
+    #tableWrapper
+    {
+        position: absolute;
+        display: flex;
+        top:232px;
+        width:403%;
+        z-index: 3;
+    }
+        #table
+        {
+            position: relative;
+        }
+        #Selections
+        {
+            position: relative;
+            width: 8vw;
+            height: 3vh
+        }
 
-#tableWrapper
-{
-    position: absolute;
-    display: flex;
-    top:232px;
-    width:403%;
-    z-index: 3;
-}
+    #RankingPieChartsParent
+    {
+        position: relative;
+        left: -9vh;
+        top: 107px;
+    }
+        #RankingPieChartsDiv1
+        {
+            position: relative;
+            width: 35vh;
+            left: 2vh;
+            display: flex;
+        }
+        #RankingPieChartsDiv2
+        {
+            position: relative;
+            width: 35vh;
+            left: 2vh;
+            display: flex;
+        }
 
-#table
-{
-    position: relative;
-}
-
-.tabulator-header, .tabulator-tableHolder
-{
-    font-size: 14px;
-}
-
-#Selections
-{
-    position: relative;
-    width: 8vw;
-    height: 3vh
-}
+/*
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+*/
 
 #ImpactPieChartDiv
 {
@@ -101,50 +143,11 @@
     top: 80px;
 }
 
-#RankingPieChartsParent
-{
-    position: relative;
-    left: -9vh;
-    top: 107px;
-}
-
-#RankingPieChartsDiv1
-{
-    position: relative;
-    width: 35vh;
-    left: 2vh;
-    display: flex;
-}
-
-#RankingPieChartsDiv2
-{
-    position: relative;
-    width: 35vh;
-    left: 2vh;
-    display: flex;
-}
-
-#Header
-{
-    position: absolute;
-    display: flex;
-    width: 100%;
-    background-color: darkgray;
-    top: 0px;
-    left: 0px;
-}
-
-    #TeamTab, #PlayerTab, #DataTab, #HomePageTab
-    {
-        background-color: gray;
-        width:25%;
-        text-align: center;
-    }
-    #TeamTab:hover, #PlayerTab:hover, #DataTab:hover, #HomePageTab:hover
-    {
-        background-color: #8c8c8c;
-    }
-
+/*
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+*/
 
 #ShotChartParent2
 {
@@ -153,17 +156,26 @@
     left: 102vh;
     top: 71vh;
 }
-#ShotChartParent
-{
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-    #court
+    #ShotChartParent
     {
-        position: absolute;
+        position: relative;
         width: 100%;
-        top: -10px;
+        height: 100%;
     }
+        #court
+        {
+            position: absolute;
+            width: 100%;
+            top: -10px;
+        }
 
+/*
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+*/
 
+.tabulator-header, .tabulator-tableHolder
+{
+    font-size: 14px;
+}
