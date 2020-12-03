@@ -32,7 +32,6 @@ let db = new sqlite3.Database('./User_downloadables/DBFILES/NBA_Stats_V3.db', sq
 app.post('/', function (req, res) 
 {
   //Receive request, set variable to received string
-  console.log("POST request detected, received data: ", req.body)
   let SQLStatement = req.body.Command
 
   //Run SQL query in the database

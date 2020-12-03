@@ -15,11 +15,9 @@ function LoadTeamInfo()
 
     //Create roster table via tabulator js
     let tabledata = SQLPostRequest('SELECT * FROM (SELECT PlayerName, Pos, Age FROM (SELECT TeamTotals.Abbr FROM TeamTotals WHERE TeamName LIKE "'
-                             + teamName + '%") AS T1 INNER JOIN PlayerTotals ON T1.Abbr = PlayerTotals.Team) AS Q INNER JOIN (SELECT * FROM PlayerSalaries WHERE Team LIKE "' + teamAbbreviation + '%") AS Q2 ON Q.PlayerName = Q2.Player GROUP BY PlayerName')                    
+                             + teamName + '%") AS T1 INNER JOIN PlayerTotals ON T1.Abbr = PlayerTotals.Team) AS Q INNER JOIN (SELECT * FROM PlayerSalaries WHERE Team LIKE "' 
+                             + teamAbbreviation + '%") AS Q2 ON Q.PlayerName = Q2.Player GROUP BY PlayerName')                    
     
-    console.log(tabledata)
-
-
     //Convert playerName strings into just names
     for(var i = 0; i < tabledata.length; i++){
         tabledata[i].PlayerName = tabledata[i].PlayerName.split("\\")[0]
@@ -106,8 +104,7 @@ function LoadTeamInfo()
   for(var i = 0; i < players2.length; i++)
   {
     let playerName = players2[i].PlayerName.split("\\")[0];
-	  let ShotData = SQLPostRequest('SELECT * FROM PlayerShotCharts WHERE shots_by LIKE "' + playerName + '%"')
-
+    let ShotData = SQLPostRequest('SELECT x,y,outcome FROM PlayerShotCharts WHERE shots_by LIKE "' + playerName + '%"')
   	for(var j = 0; j < ShotData.length; j++)
   	{
   		let symbol = "●";
@@ -118,8 +115,9 @@ function LoadTeamInfo()
   		ShotData[j].y = parseInt(ShotData[j].y.split("p")[0]) / 1.5;
 
 		  //Place shots onto page
-		  $("#ShotChartParent").append('<div style="position:absolute;top:' + ShotData[j].x + 'px;left:' + ShotData[j].y + 'px" tip="' + ShotData[j].play + '">'+symbol+'</div>')
-	  }
+      $("#ShotChartParent").append('<div style="position:absolute;top:' + ShotData[j].x + 'px;left:' + ShotData[j].y + 'px">'+symbol+'</div>')
+      num++;
+    }
   }
 }
 
