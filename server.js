@@ -5,9 +5,11 @@ app.listen(3000);
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 var path = require("path")
+var fs = require('fs');
 
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
+//SQLITE3
 
 //Connect to SQLITE3 database file
 //Open it for reading or writing
@@ -21,8 +23,9 @@ let db = new sqlite3.Database('./User_downloadables/DBFILES/NBA_Stats_V3.db', sq
 
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
+//HTTP REQUESTS
 
-//If client makes request to root url
+//If client makes POST request to root url
 //Client request is a SQL string
 //server will run sql statement via sqlite 
 //and will return data as json to client
@@ -42,19 +45,21 @@ app.post('/', function (req, res)
   },function() {res.send(data)}); //Once data is retreived from the SQLITE3 query, send data to client
 })
 
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
+//Make it possible for the server to accept get requests for all files in the directory
+createGetRequestsForProjectFiles(__dirname + "/User_downloadables");
+
+//Request to root directory ("localhost:3000") will send index.html
+app.get('/', function(req, res){
+   res.sendFile(path.join(__dirname + '/User_downloadables/HTML_FILES/index.html'));
+});
+
 ///////////////////////////////////////////////////
 //////////////////////////////////////////////////
-//////////////////////////////////////////////////
-
-//Make it possible for the server to accept get requests for all files in the directory
-var fs = require('fs');
-createGetRequestsForProjectFiles(__dirname + "/User_downloadables");
+//Functions
 
 //Given directory, creates get requests for all files
 //In and below the root
+//Recursive
 function createGetRequestsForProjectFiles(FilePath)
 {
   var files = fs.readdirSync(FilePath);
@@ -71,24 +76,9 @@ function FileGetRequest(FileName)
 {
   app.get(FileName.split(__dirname)[1], function(req, res){
     res.sendFile(FileName);
-    console.log("Sending " + FileName.split(__dirname)[1] + " to client")
   });
 }
 
-app.get('/', function(req, res){
-   res.sendFile(path.join(__dirname + '/User_downloadables/HTML_FILES/index.html'));
-   console.log("Sending index.html to client")
-});
-
-///////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
 //Checks a string to see if it has a '.' in it
-function checkIfDir(Name)
-{
-  if (Name.includes("."))
-  {
-    return false
-  }
-  return true
-}
+//If it has a '.' it is not a folder
+function checkIfDir(Name) { return !(Name.includes(".")) }
