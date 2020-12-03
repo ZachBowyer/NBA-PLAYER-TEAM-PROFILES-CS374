@@ -10,7 +10,7 @@
   <link href="/User_downloadables/CSS_FILES/tabulator.min.css" rel="stylesheet">
 </head>
 
-<body onload = "DisplayAllPlayers()">
+<body onload = "DisplayAllTeams()">
     <div id = "Header">
     <div id = "TeamTab" onclick = goToAllPlayersPage()>
       <p>All players</p>
@@ -37,10 +37,11 @@
   <script src="/User_downloadables/JS_FILES/index.js"></script>
   <script type="text/javascript" src="/User_downloadables/JS_FILES/tabulator.min.js"></script>
   <script>
-    function DisplayAllPlayers()
+    //Creates and displays table
+    //that is comprised of the stats of all nba teams
+    //and the league average
+    function DisplayAllTeams()
     {
-        console.log("Displaying all teams")
-
         let tableData = SQLPostRequest('SELECT * FROM TeamTotals')
         var table = new Tabulator("#table", 
         {
