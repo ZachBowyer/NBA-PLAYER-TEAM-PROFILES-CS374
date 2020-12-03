@@ -15,8 +15,11 @@ function LoadTeamInfo()
 
     //Create roster table via tabulator js
     let tabledata = SQLPostRequest('SELECT * FROM (SELECT PlayerName, Pos, Age FROM (SELECT TeamTotals.Abbr FROM TeamTotals WHERE TeamName LIKE "'
-                             + teamName + '%") AS T1 INNER JOIN PlayerTotals ON T1.Abbr = PlayerTotals.Team) AS Q INNER JOIN (SELECT * FROM PlayerSalaries WHERE Team LIKE "' + teamAbbreviation + '%") AS Q2 ON Q.PlayerName = Q2.Player')                    
-              
+                             + teamName + '%") AS T1 INNER JOIN PlayerTotals ON T1.Abbr = PlayerTotals.Team) AS Q INNER JOIN (SELECT * FROM PlayerSalaries WHERE Team LIKE "' + teamAbbreviation + '%") AS Q2 ON Q.PlayerName = Q2.Player GROUP BY PlayerName')                    
+    
+    console.log(tabledata)
+
+
     //Convert playerName strings into just names
     for(var i = 0; i < tabledata.length; i++){
         tabledata[i].PlayerName = tabledata[i].PlayerName.split("\\")[0]
