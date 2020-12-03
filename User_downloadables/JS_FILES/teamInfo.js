@@ -1,34 +1,32 @@
+//Executes when html page loads
 function LoadTeamInfo()
 {
-    console.log("Team File loaded")
-    let teamName = (extractUrlVariable(window.location.href))
-    populateHTML(teamName)
-}
+    //take url variable, and extract team name
+    //For example, if you are on the New York Knick's page
+    //http://localhost:3000/User_downloadables/HTML_FILES/TeamInfo.html#New%20York%20Knicks
+    //teamName will be "New York Knicks"
+    let teamName = decodeURI((window.location.href).split("#")[1])
 
-function extractUrlVariable(urlString)
-{
-    return decodeURI(urlString.split("#")[1]);
-}
-
-function populateHTML(teamName)
-{
+    //set team profile picture
     document.getElementById("ProfilePicture").src = getTeamPictureFromName(teamName);
+
+    //Get team abbreviation
     let teamAbbreviation = SQLPostRequest('SELECT Abbr From TeamTotals WHERE TeamName LIKE "' + teamName + '%"')[0].Abbr
 
     //Create roster table via tabulator js
     let tabledata = SQLPostRequest('SELECT * FROM (SELECT PlayerName, Pos, Age FROM (SELECT TeamTotals.Abbr FROM TeamTotals WHERE TeamName LIKE "'
                              + teamName + '%") AS T1 INNER JOIN PlayerTotals ON T1.Abbr = PlayerTotals.Team) AS Q INNER JOIN (SELECT * FROM PlayerSalaries WHERE Team LIKE "' + teamAbbreviation + '%") AS Q2 ON Q.PlayerName = Q2.Player')                    
               
-    console.log(teamAbbreviation)
-
     //Convert playerName strings into just names
-    for(var i = 0; i < tabledata.length; i++)
-    {
+    for(var i = 0; i < tabledata.length; i++){
         tabledata[i].PlayerName = tabledata[i].PlayerName.split("\\")[0]
     }
-    var table = new Tabulator("#RosterTable",
+
+    //Create team roster table
+    //Table created from tabledata player roster
+    new Tabulator("#RosterTable",
     {
-        data:tabledata, //assign data to table
+        data:tabledata,
         columns:[
             {title:"Name", field:"PlayerName", width:170, formatter: "link", cellClick:function(e, cell){
 				    console.log(cell.getValue())
@@ -40,7 +38,7 @@ function populateHTML(teamName)
         ]
     });
 
-    //Create offensive and defensive rating PIE charts
+    //Create offensive and defensive rating PIE charts for the team
     let numberOfTeams = SQLPostRequest('SELECT * FROM TeamTotals').length-1
     let PTSRank = SQLPostRequest('SELECT * FROM (SELECT *, RANK () OVER (ORDER BY PTS DESC) RANK FROM TeamTotals WHERE Abbr != "AVG") WHERE TeamName LIKE "' + teamName + '%"')[0].RANK;
     let DEF_PTSRank = SQLPostRequest('SELECT * FROM (SELECT *, RANK () OVER (ORDER BY PTS ASC) RANK FROM TeamOPPTotals WHERE Abbr != "AVG") WHERE TeamName LIKE "' + teamName + '%"')[0].RANK;
@@ -53,6 +51,8 @@ function populateHTML(teamName)
     let playerImpacts = []
     let playerNames = []
     let teamTotals = SQLPostRequest('SELECT * FROM TeamTotals WHERE Abbr LIKE "' + teamAbbreviation + '%"')
+
+    //Combine player data to create weighting system for pie chart
     for(var i = 0; i < players.length; i++)
     {
       let PointsWeight = (players[i].PTS / teamTotals[0].PTS) * 100;
@@ -66,10 +66,11 @@ function populateHTML(teamName)
       playerImpacts.push(totalPlayerWeight)
       playerNames.push(players[i].PlayerName.split("\\")[0])
     }
-    console.log(playerImpactWeights);
 
+    //Once data is collected for player ranking and player names
+    //Construct pie chart
     var ctx = document.getElementById("Players").getContext('2d');
-	  var myChart = new Chart(ctx,{
+	  new Chart(ctx,{
 		type: 'pie',
 		data: {
       labels: playerNames,
@@ -95,6 +96,7 @@ function populateHTML(teamName)
   });
 
   //Create team's shot chart
+  //Combines every shot chart of every player on the roster
   let players2 = SQLPostRequest('SELECT * FROM PlayerTotals WHERE Team LIKE "' + teamAbbreviation + '%"')
   for(var i = 0; i < players2.length; i++)
   {
@@ -104,24 +106,21 @@ function populateHTML(teamName)
   	for(var j = 0; j < ShotData.length; j++)
   	{
   		let symbol = "●";
-  		if(ShotData[j].outcome == "missed")
-  		{
-  			symbol = "×"
-  		}
+  		if(ShotData[j].outcome == "missed") { symbol = "×" }
+      
+      //Extract shot data position from html
+  		ShotData[j].x = parseInt(ShotData[j].x.split("p")[0]) / 1.5;
+  		ShotData[j].y = parseInt(ShotData[j].y.split("p")[0]) / 1.5;
 
-	  	ShotData[j].x = ShotData[j].x.split("p")[0];
-	  	ShotData[j].x = parseInt(ShotData[j].x);
-	  	ShotData[j].x = ShotData[j].x / 1.5;
-	  	ShotData[j].x = ShotData[j].x.toString() + "px";
-	  	ShotData[j].y = ShotData[j].y.split("p")[0];
-	  	ShotData[j].y = parseInt(ShotData[j].y);
-	  	ShotData[j].y = ShotData[j].y / 1.5;
-	  	ShotData[j].y = ShotData[j].y.toString() + "px";
-	  	$("#ShotChartParent").append('<div style="position:absolute;top:' + ShotData[j].x + ';left:' + ShotData[j].y + '" tip="' + ShotData[j].play + '">'+symbol+'</div>');
+		  //Place shots onto page
+		  $("#ShotChartParent").append('<div style="position:absolute;top:' + ShotData[j].x + 'px;left:' + ShotData[j].y + 'px" tip="' + ShotData[j].play + '">'+symbol+'</div>')
 	  }
   }
 }
 
+//Given the document elementID, name of the team, 
+//Number of teams, the team's rank, and a cateogry
+//Will construct a pie chart showing where the team stands in regard to the total number of teams
 function RankPieChart(ElementID, name, numberOfOther, Rank, Category)
 {
 	var ctx = document.getElementById(ElementID).getContext('2d');
