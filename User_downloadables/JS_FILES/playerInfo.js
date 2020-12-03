@@ -149,6 +149,8 @@ function ChangeTableAndChartData(tableData, PTSRank, ASTRank, REBRank, STLRank, 
 	//Change contents of the table
 	table = new Tabulator("#table", 
     {
+		layout:"fitDataFill",
+		layout:"fitColumns",
 		data:tableData, //assign data to table
  	    columns:[
 	    	{title:"Team", field:"Team", width:70, formatter: "link", cellClick:function(e, cell){

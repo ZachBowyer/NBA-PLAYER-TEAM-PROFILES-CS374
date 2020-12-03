@@ -26,7 +26,7 @@
     </div>
   </div>
 
-  <div id="table" style="top:30vh"></div>
+  <div id="table" style="top:30vh;width:100%"></div>
 
   <div id = "SearchAndResultsDiv">
     <input type = "text" id = "UserSearch" placeholder = "Please enter a player or team name....">
@@ -45,9 +45,10 @@
         let tableData = SQLPostRequest('SELECT * FROM TeamTotals')
         var table = new Tabulator("#table", 
         {
+            layout:"fitColumns",
             data:tableData, //assign data to table
             columns:[
-            {title: "Name", field: "TeamName", formatter: "link", cellClick:function(e,cell){
+            {title: "Name", field: "TeamName", width:150, formatter: "link", cellClick:function(e,cell){
 				      goToTeamPage(cell.getValue())
             }},
             {title: "GP", field: "GamesPlayed"},

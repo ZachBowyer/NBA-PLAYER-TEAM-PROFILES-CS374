@@ -26,6 +26,8 @@ function LoadTeamInfo()
     //Table created from tabledata player roster
     new Tabulator("#RosterTable",
     {
+        layout:"fitDataFill",
+        layout:"fitColumns",
         data:tabledata,
         columns:[
             {title:"Name", field:"PlayerName", width:170, formatter: "link", cellClick:function(e, cell){
@@ -33,8 +35,8 @@ function LoadTeamInfo()
 				    goToPlayerPage(cell.getValue())
             },},
             {title:"POS", field:"Pos", width:100},
-	    	{title:"AGE", field:"Age", width:65},
-	    	{title:"Salary", field:"Salary", width:100},
+	    	{title:"AGE", field:"Age"},
+	    	{title:"Salary", field:"Salary"},
         ]
     });
 
@@ -124,7 +126,7 @@ function LoadTeamInfo()
 function RankPieChart(ElementID, name, numberOfOther, Rank, Category)
 {
 	var ctx = document.getElementById(ElementID).getContext('2d');
-	var myChart = new Chart(ctx,{
+	new Chart(ctx,{
 		type: 'pie',
 		data: {
 		  labels: [name, "Rest of league"],

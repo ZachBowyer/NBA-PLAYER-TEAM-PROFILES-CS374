@@ -42,33 +42,32 @@
     //and the league average
     function DisplayAllPlayers()
     {
-        console.log("Displaying all players")
-
         let tableData = SQLPostRequest('SELECT * FROM PlayerTotals')
         var table = new Tabulator("#table", 
         {
-            data:tableData, //assign data to table
-        columns:[{title: "Name", field: "PlayerName", formatter: "link", cellClick:function(e,cell){
-          goToPlayerPage(cell.getValue())
-        }},
-        {title:"PTS", field:"PTS", width:60},
-	    	{title:"AST", field:"AST", width:65},
-	    	{title:"ORB", field:"ORB", width:65},
-	    	{title:"DRB", field:"DRB", width:65},
-	    	{title:"BLK", field:"BLK", width:65},
-	    	{title:"FGA", field:"FGA", width:65},
-	    	{title:"FT", field:"FT", width:60},
-	    	{title:"FTA", field:"FTA", width:65},
-	    	{title:"G", field:"G", width:60},
-	    	{title:"GS", field:"GS", width:60},
-	    	{title:"MP", field:"MP", width:60},
-	    	{title:"PF", field:"PF", width:60},
-	    	{title:"STL", field:"STL", width:65},
-	    	{title:"TOV", field:"TOV", width:65},
-	    	{title:"3PA", field:"ThreePointA", width:60},
-	    	{title:"3PM", field:"ThreePointM", width:65},
-	    	{title:"2PA", field:"TwoPointA", width:60},
-	    	{title:"2PM", field:"TwoPointM", width:65},],
+          layout:"fitColumns",
+          data:tableData, //assign data to table
+          columns:[{title: "Name", field: "PlayerName", width:200, formatter: "link", cellClick:function(e,cell){
+          goToPlayerPage((cell.getValue()).split('\\')[0])
+          }},
+          {title:"PTS", field:"PTS"},
+	    	  {title:"AST", field:"AST"},
+	    	  {title:"ORB", field:"ORB"},
+	    	  {title:"DRB", field:"DRB"},
+	    	  {title:"BLK", field:"BLK"},
+	    	  {title:"FGA", field:"FGA"},
+	    	  {title:"FT", field:"FT"},
+	    	  {title:"FTA", field:"FTA"},
+	    	  {title:"G", field:"G"},
+	    	  {title:"GS", field:"GS"},
+	    	  {title:"MP", field:"MP"},
+	    	  {title:"PF", field:"PF"},
+	    	  {title:"STL", field:"STL"},
+	    	  {title:"TOV", field:"TOV"},
+	    	  {title:"3PA", field:"ThreePointA"},
+	    	  {title:"3PM", field:"ThreePointM"},
+	    	  {title:"2PA", field:"TwoPointA"},
+	    	  {title:"2PM", field:"TwoPointM"},],
         });
     }
   </script>
