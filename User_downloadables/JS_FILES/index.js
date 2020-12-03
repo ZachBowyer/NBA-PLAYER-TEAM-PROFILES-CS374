@@ -101,9 +101,9 @@ function createPlayerSearchString(playerName)
 
 function goToAllPlayersPage()
 {
-    $.get( "/AllPlayers.html", function( data ) {
+    $.get( "/User_downloadables/HTML_FILES/AllPlayers.html", function( data ) {
     $( ".result" ).html( data );
-    window.location.href = "/AllPlayers.html";
+    window.location.href = "/User_downloadables/HTML_FILES/AllPlayers.html";
     setTimeout(function(){
         location.reload()
     }, 40)
@@ -112,9 +112,9 @@ function goToAllPlayersPage()
 
 function goToAllTeamsPage()
 {
-    $.get( "/AllTeams.html", function( data ) {
+    $.get( "/User_downloadables/HTML_FILES/AllTeams.html", function( data ) {
     $( ".result" ).html( data );
-    window.location.href = "/AllTeams.html";
+    window.location.href = "/User_downloadables/HTML_FILES/AllTeams.html";
     setTimeout(function(){
         location.reload()
     }, 40)
@@ -123,9 +123,9 @@ function goToAllTeamsPage()
 
 function goToDownloadPage()
 {
-    $.get( "/Downloads.html", function( data ) {
+    $.get( "/User_downloadables/HTML_FILES/Downloads.html", function( data ) {
     $( ".result" ).html( data );
-    window.location.href = "/Downloads.html";
+    window.location.href = "/User_downloadables/HTML_FILES/Downloads.html";
     setTimeout(function(){
         location.reload()
     }, 40)
@@ -146,9 +146,9 @@ function goToHomePage()
 //Player html relevant js
 function goToPlayerPage(playerName)
 {
-    $.get( "/playerInfo.html", function( data ) {
+    $.get( "/User_downloadables/HTML_FILES/playerInfo.html", function( data ) {
     $( ".result" ).html( data );
-    window.location.href = "/playerInfo.html#" + playerName
+    window.location.href = "/User_downloadables/HTML_FILES/playerInfo.html#" + playerName
     setTimeout(function(){
         location.reload()
     }, 40)
@@ -162,9 +162,9 @@ function goToPlayerPage(playerName)
 //Team html relevant js
 function goToTeamPage(teamName)
 {
-    $.get( "/TeamInfo.html", function( data ) {
+    $.get( "/User_downloadables/HTML_FILES/TeamInfo.html", function( data ) {
     $( ".result" ).html( data );
-    window.location.href = "/TeamInfo.html#" + teamName
+    window.location.href = "/User_downloadables/HTML_FILES/TeamInfo.html#" + teamName
     setTimeout(function(){
         location.reload()
     }, 40)
