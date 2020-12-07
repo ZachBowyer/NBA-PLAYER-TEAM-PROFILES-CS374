@@ -1,20 +1,29 @@
+# Python file that creates the SQLITE3 database file
+# Uses various csv files to construct and populate tables
+#
+# Note: Data from shot-2019.csv is incomplete, no easy way around it.
+#       ShotChart data was manually scrapped off of basketball-reference.com
+
 import os
 import sqlite3
 import csv
+
+#Connect to database file or create it if it already exists
 conn = sqlite3.connect('NBA_Stats.db')
 print("Opened/created database successfully")
 cursor = conn.cursor()
 
+#Clear screen
 os.system('cls')
-#Creates TeamTotals table
 
 #Given a sqlite3 connection cursor object and a table name,
-#will return true if the given table exists
+# will return true if the given table exists
 def checkIfTableExists(cursor, TableName):
     cursor.execute(""" SELECT count(*) FROM sqlite_master WHERE type='table' AND name='{}' """.format(TableName))
     return (cursor.fetchone()[0]==1)
 
-#Given a csvfile, returns an array of arrays, where each inner array elements are the csv values
+#Given a csvfile, returns an array of arrays, 
+# where each inner array elements are the csv values
 def getDataFromCsv(FilePath):
     DataList = []
     with open(FilePath, newline = '', encoding = 'utf-8') as csvfile:
@@ -25,26 +34,29 @@ def getDataFromCsv(FilePath):
     return DataList
 
 
+#Retreive data from csv files
 TeamTotalData = getDataFromCsv('TeamTotals.csv')
 TeamOppTotalData = getDataFromCsv('TeamOppTotals.csv')
 PlayerData = getDataFromCsv('PlayerTotals.csv')
 ShotChartData = getDataFromCsv('shots-2019.csv')
 SalaryData = getDataFromCsv('PlayerSalaries.csv')
+
+#Print number of rows from each csv array
 print(len(TeamTotalData))
 print(len(TeamOppTotalData))
 print(len(PlayerData))
 print(len(ShotChartData))
 print(len(SalaryData))
 
+#Remove top row from each csv array (Top row is usually descriptions)
 ShotChartData.pop(0)
 TeamTotalData.pop(0)
 TeamOppTotalData.pop(0)
 PlayerData.pop(0)
 SalaryData.pop(0)
 
-
-
-
+# Create TeamTotals table schema
+# Will not try to create if the table already exists
 if(checkIfTableExists(cursor, 'TeamTotals')):
     print("TeamTotals table exists")
 else:
@@ -73,7 +85,8 @@ else:
     print("Table TeamTotals created")
 
 
-#Creates TeamOpponentTotals table
+# Create TeamOpponentTotals table schema
+# Will not try to create if the table already exists
 if(checkIfTableExists(cursor, 'TeamOppTotals')):
     print("TeamTotals table exists")
 else:
@@ -100,8 +113,8 @@ else:
              PTS REAL);""")
     print("Table TeamOppTotals created")
 
-#Creates PlayerTotals table
-
+# Create PlayerTotals table schema
+# Will not try to create if the table already exists
 if(checkIfTableExists(cursor, 'PlayerTotals')):
     print("PlayerTotals table exists")
 else:
@@ -132,6 +145,8 @@ else:
              PTS REAL);""")
     print("Table PlayerTotals created")
 
+# Create PlayerShotCharts table schema
+# Will not try to create if the table already exists
 if(checkIfTableExists(cursor, 'PlayerShotCharts')):
     print("PlayerShotCharts table exists")
 else:
@@ -149,6 +164,9 @@ else:
                      outcome TEXT);""")
     print("Table PlayerShotCharts created")
 
+
+# Create PlayerSalaries table schema
+# Will not try to create if the table already exists
 if(checkIfTableExists(cursor, 'PlayerSalaries')):
     print("PlayerSalaries table exists")
 else:
@@ -160,17 +178,25 @@ else:
     print("Table PlayerSalaries created")
 
 
-#Insert data into db file
+# Once the schemas are defined for each table in the database
+# and the data from each corresponding csv file is retreived into arrays,
+# Populate the database tables with the csv data
+
+#Insert data into TeamTotals table
 for i in range(len(TeamTotalData)):
     cursor.execute('INSERT INTO TeamTotals VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', tuple(TeamTotalData[i]))
 
+#Insert data into TeamOppTotals table
 for i in range(len(TeamOppTotalData)):
     cursor.execute('INSERT INTO TeamOppTotals VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', tuple(TeamOppTotalData[i]))
 
+#Insert data into PlayerTotals table
 for i in range(len(PlayerData)):
     cursor.execute('INSERT INTO PlayerTotals VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', tuple(PlayerData[i]))
 
+#Insert data into PlayerShotCharts table
 for i in range(len(ShotChartData)):
+    #pop()'s are being used to exclude unimportant data from the database
     ShotChartData[i].pop(0)
     ShotChartData[i].pop(0)
     ShotChartData[i].pop(9)
@@ -179,13 +205,16 @@ for i in range(len(ShotChartData)):
     ShotChartData[i].pop(len(ShotChartData[i])-1)
     ShotChartData[i].pop(len(ShotChartData[i])-1)
     ShotChartData[i].pop(len(ShotChartData[i])-1)
+
+    #Removes commas from the 'play' field because commas are treated as separate values
     ShotChartData[i][7].replace(',',' ')
     cursor.execute('INSERT INTO PlayerShotCharts VALUES(?,?,?,?,?,?,?,?,?,?,?)', tuple(ShotChartData[i]))
 
+#Insert data into PlayerSalaries table
 for i in range(len(SalaryData)):
     cursor.execute('INSERT INTO PlayerSalaries VALUES(?,?,?,?)', tuple(SalaryData[i]))
 
-
+# Commit changes and close database connection
 conn.commit()
 conn.close()
 
