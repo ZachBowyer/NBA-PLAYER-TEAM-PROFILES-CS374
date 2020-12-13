@@ -16,10 +16,10 @@ System requirements:
 6.	Express JS – Node.js web server library. Allows HTTP requests.
 7.	Nodemon – Node.js library that automatically restarts express web server when changes are detected.
 8.	Python version 3.9.0 – Used to create and populate SQLITE3 databases.
-9.	Jquery version 3.5.1 – Used to make HTTP requests from the client 
+9.	jQuery version 3.5.1 – Used to make HTTP requests from the client 
 10.	Chart.js – JavaScript library that can make animated, interactive graphs
 11.	Tabulator.js - JavaScript table generation library
-12. Node.js File system - Node.js file system standard that is being used to automaitcally generate get requests for all fles in a specified folder and its subdirectories
+12. Node.js File system - Node.js file system standard that is being used to automatically generate get requests for all fles in a specified folder and its subdirectories
 
 Detailed description
 

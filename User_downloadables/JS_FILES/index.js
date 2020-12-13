@@ -14,7 +14,7 @@ function SQLPostRequest(SQLString)
     url: PageUrl,
     data: data_,
     success: function(Data) { result = Data},
-    async:false //bad for large data
+    async:false 
     });
     return result;
 }
